@@ -1,0 +1,1050 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "title": "Dell XPS 15 Laptop",
+      "price": 125000,
+      "category": "electronics",
+      "brand": "Dell",
+      "rating": 4.7,
+      "stock": 8,
+      "images": [
+        "assets/images/laptop-1.jpg",
+        "assets/images/laptop.jpg"
+      ],
+      "description": "Premium ultrabook with InfinityEdge display, 32GB RAM, and 1TB SSD. Perfect for professionals and creators.",
+      "specs": {
+        "ram": "32GB",
+        "storage": "1TB SSD",
+        "processor": "Intel i9",
+        "display": "15.6 inch 4K OLED"
+      }
+    },
+    {
+      "id": "2",
+      "title": "Samsung Galaxy S24 Ultra",
+      "price": 135000,
+      "category": "electronics",
+      "brand": "Samsung",
+      "rating": 4.8,
+      "stock": 15,
+      "images": [
+        "assets/images/smartphone.jpg"
+      ],
+      "description": "Latest flagship smartphone with AI features, 200MP camera, and S Pen support.",
+      "specs": {
+        "ram": "12GB",
+        "storage": "512GB",
+        "battery": "5000mAh",
+        "camera": "200MP + 50MP + 12MP"
+      }
+    },
+    {
+      "id": "3",
+      "title": "Logitech MX Mechanical Keyboard",
+      "price": 12500,
+      "category": "accessories",
+      "brand": "Logitech",
+      "rating": 4.6,
+      "stock": 25,
+      "images": [
+        "assets/images/keyboard.jpg"
+      ],
+      "description": "Wireless mechanical keyboard with low-profile switches and smart backlighting.",
+      "specs": {
+        "switch": "Tactile Quiet",
+        "rgb": true,
+        "wireless": "Bluetooth + Logi Bolt"
+      }
+    },
+    {
+      "id": "4",
+      "title": "Apple MacBook Pro 14",
+      "price": 189000,
+      "category": "electronics",
+      "brand": "Apple",
+      "rating": 4.9,
+      "stock": 12,
+      "images": [
+        "assets/images/laptop-3.jpg"
+      ],
+      "description": "Powerful laptop with M3 Pro chip, 18GB RAM, and stunning Liquid Retina XDR display.",
+      "specs": {
+        "ram": "18GB",
+        "storage": "512GB SSD",
+        "processor": "Apple M3 Pro",
+        "display": "14.2 inch Liquid Retina XDR"
+      }
+    },
+    {
+      "id": "5",
+      "title": "Sony WH-1000XM5 Headphones",
+      "price": 28000,
+      "category": "audio",
+      "brand": "Sony",
+      "rating": 4.8,
+      "stock": 30,
+      "images": [
+        "assets/images/Headphone.jpg"
+      ],
+      "description": "Industry-leading noise canceling headphones with exceptional sound quality and 30-hour battery life.",
+      "specs": {
+        "noise_cancelling": "Yes",
+        "battery_life": "30 hours",
+        "wireless": "Bluetooth 5.2"
+      }
+    },
+    {
+      "id": "6",
+      "title": "LG 27GN950-B Gaming Monitor",
+      "price": 55000,
+      "category": "electronics",
+      "brand": "LG",
+      "rating": 4.5,
+      "stock": 7,
+      "images": [
+        "assets/images/Monitor1.jpg",
+        "assets/images/Monitor2.jpg"
+      ],
+      "description": "27-inch 4K UHD Nano IPS gaming monitor with 144Hz refresh rate and G-SYNC compatibility.",
+      "specs": {
+        "size": "27 inch",
+        "resolution": "4K UHD",
+        "refresh_rate": "144Hz",
+        "panel": "Nano IPS"
+      }
+    },
+    {
+      "id": "7",
+      "title": "Razer DeathAdder V3 Pro",
+      "price": 11000,
+      "category": "accessories",
+      "brand": "Razer",
+      "rating": 4.7,
+      "stock": 18,
+      "images": [
+        "assets/images/Mouse.jpg",
+        "assets/images/Mouse1.jpg"
+      ],
+      "description": "Ultra-lightweight wireless ergonomic gaming mouse with Focus Pro 30K optical sensor.",
+      "specs": {
+        "sensor": "Focus Pro 30K",
+        "weight": "63g",
+        "wireless": "Razer HyperSpeed"
+      }
+    },
+    {
+      "id": "8",
+      "title": "Apple iPad Air 5",
+      "price": 59900,
+      "category": "electronics",
+      "brand": "Apple",
+      "rating": 4.6,
+      "stock": 20,
+      "images": [
+        "assets/images/laptop.jpg"
+      ],
+      "description": "Powerful tablet with M1 chip, 10.9-inch Liquid Retina display, and support for Apple Pencil.",
+      "specs": {
+        "chip": "M1",
+        "storage": "64GB",
+        "display": "10.9 inch Liquid Retina",
+        "camera": "12MP"
+      }
+    },
+    {
+      "id": "9",
+      "title": "Google Pixel 8 Pro",
+      "price": 109000,
+      "category": "electronics",
+      "brand": "Google",
+      "rating": 4.4,
+      "stock": 10,
+      "images": [
+        "assets/images/smartphone.jpg"
+      ],
+      "description": "AI-powered smartphone with exceptional camera system and 7 years of security updates.",
+      "specs": {
+        "ram": "12GB",
+        "storage": "128GB",
+        "battery": "5050mAh",
+        "processor": "Google Tensor G3"
+      }
+    },
+    {
+      "id": "10",
+      "title": "Bose QuietComfort Earbuds II",
+      "price": 25000,
+      "category": "audio",
+      "brand": "Bose",
+      "rating": 4.5,
+      "stock": 22,
+      "images": [
+        "assets/images/Headphone1.jpg"
+      ],
+      "description": "True wireless earbuds with world-class noise cancellation and custom acoustic architecture.",
+      "specs": {
+        "noise_cancelling": "Yes",
+        "battery_life": "6 hours",
+        "water_resistance": "IPX4"
+      }
+    },
+    {
+      "id": "11",
+      "title": "Corsair K70 RGB Pro Keyboard",
+      "price": 16500,
+      "category": "accessories",
+      "brand": "Corsair",
+      "rating": 4.4,
+      "stock": 14,
+      "images": [
+        "assets/images/keyboard.jpg"
+      ],
+      "description": "Mechanical gaming keyboard with Cherry MX switches, aluminum frame, and per-key RGB lighting.",
+      "specs": {
+        "switch": "Cherry MX Speed",
+        "rgb": true,
+        "wrist_rest": "Yes"
+      }
+    },
+    {
+      "id": "12",
+      "title": "NVIDIA GeForce RTX 4080",
+      "price": 115000,
+      "category": "components",
+      "brand": "NVIDIA",
+      "rating": 4.9,
+      "stock": 5,
+      "images": [
+        "assets/images/Monitor1.jpg"
+      ],
+      "description": "High-performance graphics card with 16GB GDDR6X memory and DLSS 3 support.",
+      "specs": {
+        "memory": "16GB GDDR6X",
+        "ray_tracing": "3rd Generation",
+        "dlss": "3.0",
+        "power": "320W"
+      }
+    },
+    {
+      "id": "13",
+      "title": "Samsung 980 Pro SSD 2TB",
+      "price": 18500,
+      "category": "components",
+      "brand": "Samsung",
+      "rating": 4.8,
+      "stock": 35,
+      "images": [
+        "assets/images/Monitor2.jpg"
+      ],
+      "description": "PCIe 4.0 NVMe SSD with read speeds up to 7,000 MB/s for gaming and creative workloads.",
+      "specs": {
+        "capacity": "2TB",
+        "interface": "PCIe 4.0",
+        "read_speed": "7000 MB/s",
+        "write_speed": "5100 MB/s"
+      }
+    },
+    {
+      "id": "14",
+      "title": "Logitech MX Master 3S",
+      "price": 9500,
+      "category": "accessories",
+      "brand": "Logitech",
+      "rating": 4.7,
+      "stock": 28,
+      "images": [
+        "assets/images/Mouse.jpg"
+      ],
+      "description": "High-performance wireless mouse with 8K DPI tracking and MagSpeed electromagnetic scrolling.",
+      "specs": {
+        "sensor": "8K DPI",
+        "buttons": 6,
+        "battery": "70 days",
+        "wireless": "Bluetooth + Logi Bolt"
+      }
+    },
+    {
+      "id": "15",
+      "title": "Apple iPhone 15 Pro Max",
+      "price": 159000,
+      "category": "electronics",
+      "brand": "Apple",
+      "rating": 4.8,
+      "stock": 18,
+      "images": [
+        "assets/images/smartphone.jpg"
+      ],
+      "description": "Latest iPhone with titanium design, A17 Pro chip, and 5x optical zoom camera.",
+      "specs": {
+        "ram": "8GB",
+        "storage": "256GB",
+        "chip": "A17 Pro",
+        "display": "6.7 inch Super Retina XDR"
+      }
+    },
+    {
+      "id": "16",
+      "title": "ASUS ROG Zephyrus G14",
+      "price": 145000,
+      "category": "electronics",
+      "brand": "ASUS",
+      "rating": 4.6,
+      "stock": 9,
+      "images": [
+        "assets/images/laptop-1.jpg"
+      ],
+      "description": "Compact gaming laptop with AMD Ryzen 9, NVIDIA RTX 4060, and AniMe Matrix display.",
+      "specs": {
+        "processor": "AMD Ryzen 9",
+        "graphics": "RTX 4060",
+        "ram": "16GB",
+        "storage": "1TB SSD"
+      }
+    },
+    {
+      "id": "17",
+      "title": "SteelSeries Arctis Nova Pro",
+      "price": 32000,
+      "category": "audio",
+      "brand": "SteelSeries",
+      "rating": 4.7,
+      "stock": 12,
+      "images": [
+        "assets/images/Headphone.jpg"
+      ],
+      "description": "Premium wireless gaming headset with dual battery system and active noise cancellation.",
+      "specs": {
+        "wireless": "2.4GHz + Bluetooth",
+        "battery": "22 hours per battery",
+        "noise_cancelling": "Yes",
+        "frequency": "10-40,000 Hz"
+      }
+    },
+    {
+      "id": "18",
+      "title": "WD Black SN850X 4TB",
+      "price": 35000,
+      "category": "components",
+      "brand": "Western Digital",
+      "rating": 4.5,
+      "stock": 8,
+      "images": [
+        "assets/images/Monitor1.jpg"
+      ],
+      "description": "High-performance PCIe 4.0 NVMe SSD with up to 7,300 MB/s read speeds.",
+      "specs": {
+        "capacity": "4TB",
+        "interface": "PCIe 4.0",
+        "read_speed": "7300 MB/s",
+        "write_speed": "6600 MB/s"
+      }
+    },
+    {
+      "id": "19",
+      "title": "Anker 737 Power Bank",
+      "price": 12500,
+      "category": "accessories",
+      "brand": "Anker",
+      "rating": 4.6,
+      "stock": 42,
+      "images": [
+        "assets/images/Mouse1.jpg"
+      ],
+      "description": "24,000mAh power bank with 140W output, capable of charging laptops and smartphones.",
+      "specs": {
+        "capacity": "24000mAh",
+        "output": "140W",
+        "ports": "2 USB-C, 1 USB-A",
+        "technology": "GaNPrime"
+      }
+    },
+    {
+      "id": "20",
+      "title": "Samsung Odyssey G9 Monitor",
+      "price": 159000,
+      "category": "electronics",
+      "brand": "Samsung",
+      "rating": 4.7,
+      "stock": 4,
+      "images": [
+        "assets/images/Monitor1.jpg",
+        "assets/images/Monitor2.jpg"
+      ],
+      "description": "49-inch curved gaming monitor with 240Hz refresh rate and 1ms response time.",
+      "specs": {
+        "size": "49 inch",
+        "resolution": "5120 x 1440",
+        "refresh_rate": "240Hz",
+        "curvature": "1000R"
+      }
+    },
+    {
+      "id": "21",
+      "title": "HyperX Cloud II Wireless",
+      "price": 12500,
+      "category": "audio",
+      "brand": "HyperX",
+      "rating": 4.5,
+      "stock": 20,
+      "images": [
+        "assets/images/Headphone1.jpg"
+      ],
+      "description": "Wireless gaming headset with 30-hour battery life and virtual 7.1 surround sound.",
+      "specs": {
+        "battery": "30 hours",
+        "wireless": "2.4GHz",
+        "driver": "53mm",
+        "frequency": "15-20,000 Hz"
+      }
+    },
+    {
+      "id": "22",
+      "title": "Corsair RM1000e PSU",
+      "price": 16500,
+      "category": "components",
+      "brand": "Corsair",
+      "rating": 4.7,
+      "stock": 15,
+      "images": [
+        "assets/images/Monitor2.jpg"
+      ],
+      "description": "1000W fully modular power supply with 80+ Gold efficiency and quiet operation.",
+      "specs": {
+        "wattage": "1000W",
+        "efficiency": "80+ Gold",
+        "modular": "Fully",
+        "fan": "120mm"
+      }
+    },
+    {
+      "id": "23",
+      "title": "Elgato Stream Deck MK.2",
+      "price": 15000,
+      "category": "accessories",
+      "brand": "Elgato",
+      "rating": 4.8,
+      "stock": 16,
+      "images": [
+        "assets/images/keyboard.jpg"
+      ],
+      "description": "Customizable live production controller with 15 LCD keys for streaming and productivity.",
+      "specs": {
+        "keys": 15,
+        "interface": "USB-C",
+        "software": "Stream Deck Software"
+      }
+    },
+    {
+      "id": "24",
+      "title": "ASUS ROG Swift 360Hz Monitor",
+      "price": 62000,
+      "category": "electronics",
+      "brand": "ASUS",
+      "rating": 4.6,
+      "stock": 6,
+      "images": [
+        "assets/images/Monitor1.jpg"
+      ],
+      "description": "24.5-inch esports gaming monitor with 360Hz refresh rate for competitive gaming.",
+      "specs": {
+        "size": "24.5 inch",
+        "resolution": "1920 x 1080",
+        "refresh_rate": "360Hz",
+        "response_time": "0.3ms"
+      }
+    },
+    {
+      "id": "25",
+      "title": "JBL Flip 6 Speaker",
+      "price": 9990,
+      "category": "audio",
+      "brand": "JBL",
+      "rating": 4.4,
+      "stock": 38,
+      "images": [
+        "assets/images/Headphone.jpg"
+      ],
+      "description": "Portable Bluetooth speaker with waterproof design and powerful sound.",
+      "specs": {
+        "waterproof": "IPX7",
+        "battery": "12 hours",
+        "connectivity": "Bluetooth 5.1",
+        "output": "30W"
+      }
+    },
+    {
+      "id": "26",
+      "title": "MSI GeForce RTX 4070 Ti",
+      "price": 85000,
+      "category": "components",
+      "brand": "MSI",
+      "rating": 4.7,
+      "stock": 10,
+      "images": [
+        "assets/images/Monitor2.jpg"
+      ],
+      "description": "Graphics card with 12GB GDDR6X memory and advanced cooling technology.",
+      "specs": {
+        "memory": "12GB GDDR6X",
+        "ray_tracing": "3rd Generation",
+        "dlss": "3.0",
+        "cooling": "Tri-Frozr 3"
+      }
+    },
+    {
+      "id": "27",
+      "title": "Dell UltraSharp U4323QE",
+      "price": 110000,
+      "category": "electronics",
+      "brand": "Dell",
+      "rating": 4.5,
+      "stock": 3,
+      "images": [
+        "assets/images/Monitor1.jpg",
+        "assets/images/Monitor2.jpg"
+      ],
+      "description": "43-inch 4K monitor with IPS Black technology and USB-C hub.",
+      "specs": {
+        "size": "43 inch",
+        "resolution": "3840 x 2160",
+        "panel": "IPS Black",
+        "ports": "USB-C, HDMI, DisplayPort"
+      }
+    },
+    {
+      "id": "28",
+      "title": "Keychron Q1 Pro Keyboard",
+      "price": 18500,
+      "category": "accessories",
+      "brand": "Keychron",
+      "rating": 4.8,
+      "stock": 12,
+      "images": [
+        "assets/images/keyboard.jpg"
+      ],
+      "description": "Fully customizable QMK/VIA wireless mechanical keyboard with aluminum body.",
+      "specs": {
+        "switch": "Gateron G Pro",
+        "layout": "75%",
+        "wireless": "Bluetooth 5.1",
+        "material": "Aluminum"
+      }
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "name": "Nandhu",
+      "email": "nandhu@test.com",
+      "join_date": "2025-01-15"
+    },
+    {
+      "id": "2",
+      "name": "John Doe",
+      "email": "john@test.com",
+      "join_date": "2025-02-20"
+    },
+    {
+      "id": "3",
+      "name": "Sarah Johnson",
+      "email": "sarah@test.com",
+      "join_date": "2025-03-10"
+    },
+    {
+      "id": "4",
+      "name": "Michael Chen",
+      "email": "michael@test.com",
+      "join_date": "2025-04-05"
+    },
+    {
+      "id": "5",
+      "name": "Emily Davis",
+      "email": "emily@test.com",
+      "join_date": "2025-05-18"
+    },
+    {
+      "id": "6",
+      "name": "David Wilson",
+      "email": "david@test.com",
+      "join_date": "2025-06-22"
+    },
+    {
+      "id": "7",
+      "name": "Priya Sharma",
+      "email": "priya@test.com",
+      "join_date": "2025-07-01"
+    },
+    {
+      "id": "8",
+      "name": "Alex Turner",
+      "email": "alex@test.com",
+      "join_date": "2025-08-14"
+    }
+  ],
+  "wishlist": [],
+  "cart": [
+    {
+      "id": "3fc1",
+      "userId": 1,
+      "productId": "17",
+      "quantity": 1
+    },
+    {
+      "id": "6228",
+      "userId": 1,
+      "productId": "2",
+      "quantity": 1
+    }
+  ],
+  "reviews": [
+    {
+      "id": "1",
+      "productId": "1",
+      "userId": "1",
+      "rating": 5,
+      "comment": "Amazing laptop! The performance is outstanding and the display is gorgeous.",
+      "date": "2026-03-18"
+    },
+    {
+      "id": "2",
+      "productId": "1",
+      "userId": "2",
+      "rating": 4,
+      "comment": "Good but expensive. Build quality is premium.",
+      "date": "2026-03-17"
+    },
+    {
+      "id": "3",
+      "productId": "2",
+      "userId": "1",
+      "rating": 5,
+      "comment": "Best phone I've ever used. Camera is incredible!",
+      "date": "2026-03-15"
+    },
+    {
+      "id": "4",
+      "productId": "2",
+      "userId": "3",
+      "rating": 4,
+      "comment": "Great phone but battery could be better.",
+      "date": "2026-03-14"
+    },
+    {
+      "id": "5",
+      "productId": "4",
+      "userId": "2",
+      "rating": 5,
+      "comment": "MacBook Pro is a beast for video editing. M3 Pro chip is insane!",
+      "date": "2026-03-12"
+    },
+    {
+      "id": "6",
+      "productId": "5",
+      "userId": "3",
+      "rating": 5,
+      "comment": "Best noise cancelling headphones. Worth every penny.",
+      "date": "2026-03-10"
+    },
+    {
+      "id": "7",
+      "productId": "5",
+      "userId": "4",
+      "rating": 4,
+      "comment": "Very comfortable and sound quality is excellent.",
+      "date": "2026-03-08"
+    },
+    {
+      "id": "8",
+      "productId": "7",
+      "userId": "5",
+      "rating": 5,
+      "comment": "Super lightweight and responsive. Perfect for gaming.",
+      "date": "2026-03-05"
+    },
+    {
+      "id": "9",
+      "productId": "8",
+      "userId": "6",
+      "rating": 4,
+      "comment": "Great tablet for note-taking and media consumption.",
+      "date": "2026-03-01"
+    },
+    {
+      "id": "10",
+      "productId": "12",
+      "userId": "4",
+      "rating": 5,
+      "comment": "RTX 4080 handles everything at max settings. Amazing performance!",
+      "date": "2026-02-28"
+    },
+    {
+      "id": "11",
+      "productId": "13",
+      "userId": "7",
+      "rating": 5,
+      "comment": "Incredible speed upgrade from my old SSD.",
+      "date": "2026-02-25"
+    },
+    {
+      "id": "12",
+      "productId": "15",
+      "userId": "1",
+      "rating": 5,
+      "comment": "iPhone 15 Pro Max is the ultimate smartphone. Camera zoom is impressive.",
+      "date": "2026-02-20"
+    },
+    {
+      "id": "13",
+      "productId": "15",
+      "userId": "8",
+      "rating": 4,
+      "comment": "Great phone but heavy.",
+      "date": "2026-02-18"
+    },
+    {
+      "id": "14",
+      "productId": "20",
+      "userId": "3",
+      "rating": 5,
+      "comment": "Ultrawide monitor is a game changer for productivity and gaming.",
+      "date": "2026-02-15"
+    },
+    {
+      "id": "15",
+      "productId": "23",
+      "userId": "5",
+      "rating": 5,
+      "comment": "Stream Deck makes streaming so much easier. Highly recommend!",
+      "date": "2026-02-10"
+    },
+    {
+      "id": "16",
+      "productId": "28",
+      "userId": "8",
+      "rating": 5,
+      "comment": "Best mechanical keyboard I've owned. Premium build quality.",
+      "date": "2026-02-05"
+    },
+    {
+      "id": "17",
+      "productId": "30",
+      "userId": "4",
+      "rating": 5,
+      "comment": "7800X3D is a gaming beast! Perfect for my new build.",
+      "date": "2026-02-01"
+    },
+    {
+      "id": "18",
+      "productId": "6",
+      "userId": "2",
+      "rating": 4,
+      "comment": "Great monitor for gaming and content creation.",
+      "date": "2026-01-28"
+    },
+    {
+      "id": "19",
+      "productId": "11",
+      "userId": "6",
+      "rating": 4,
+      "comment": "Solid keyboard with great RGB lighting.",
+      "date": "2026-01-25"
+    },
+    {
+      "id": "20",
+      "productId": "17",
+      "userId": "7",
+      "rating": 5,
+      "comment": "Best gaming headset I've ever used. Comfortable for long sessions.",
+      "date": "2026-01-20"
+    },
+    {
+      "id": "738d1df2-feb2-4763-84de-ec6237e340a0",
+      "comment": "reviewwwww",
+      "rating": 4,
+      "productId": "2",
+      "userId": "1",
+      "date": "2026-03-24T05:12:28.948Z"
+    },
+    {
+      "id": "cfa8",
+      "comment": "4 stars",
+      "rating": 4,
+      "productId": "1",
+      "userId": 1,
+      "date": "2026-03-24T05:45:12.480Z"
+    },
+    {
+      "id": "78dc",
+      "comment": "trtyuioop[p",
+      "rating": 4,
+      "productId": "1",
+      "userId": 1,
+      "date": "2026-03-24T12:37:50.099Z"
+    },
+    {
+      "id": "541a",
+      "comment": "phone",
+      "rating": 4,
+      "productId": "1",
+      "userId": 1,
+      "date": "2026-03-25T10:37:35.867Z"
+    },
+    {
+      "id": "0509",
+      "comment": "ssss",
+      "rating": 2,
+      "productId": "1",
+      "userId": 1,
+      "date": "2026-03-25T10:45:28.054Z"
+    }
+  ],
+  "orders": [
+    {
+      "id": "1",
+      "userId": 1,
+      "items": [
+        {
+          "productId": 1,
+          "quantity": 1,
+          "price": 125000
+        },
+        {
+          "productId": 2,
+          "quantity": 2,
+          "price": 135000
+        }
+      ],
+      "total": 395000,
+      "status": "delivered",
+      "date": "2026-03-15"
+    },
+    {
+      "id": "2",
+      "userId": 2,
+      "items": [
+        {
+          "productId": 4,
+          "quantity": 1,
+          "price": 189000
+        },
+        {
+          "productId": 14,
+          "quantity": 1,
+          "price": 9500
+        }
+      ],
+      "total": 198500,
+      "status": "delivered",
+      "date": "2026-03-10"
+    },
+    {
+      "id": "3",
+      "userId": 3,
+      "items": [
+        {
+          "productId": 5,
+          "quantity": 1,
+          "price": 28000
+        },
+        {
+          "productId": 10,
+          "quantity": 2,
+          "price": 25000
+        }
+      ],
+      "total": 78000,
+      "status": "shipped",
+      "date": "2026-03-18"
+    },
+    {
+      "id": "4",
+      "userId": 1,
+      "items": [
+        {
+          "productId": 15,
+          "quantity": 1,
+          "price": 159000
+        },
+        {
+          "productId": 19,
+          "quantity": 1,
+          "price": 12500
+        }
+      ],
+      "total": 171500,
+      "status": "processing",
+      "date": "2026-03-20"
+    },
+    {
+      "id": "5",
+      "userId": 4,
+      "items": [
+        {
+          "productId": 12,
+          "quantity": 1,
+          "price": 115000
+        },
+        {
+          "productId": 22,
+          "quantity": 1,
+          "price": 16500
+        },
+        {
+          "productId": 30,
+          "quantity": 1,
+          "price": 38000
+        }
+      ],
+      "total": 169500,
+      "status": "delivered",
+      "date": "2026-03-12"
+    },
+    {
+      "id": "6",
+      "userId": 5,
+      "items": [
+        {
+          "productId": 7,
+          "quantity": 1,
+          "price": 11000
+        },
+        {
+          "productId": 23,
+          "quantity": 1,
+          "price": 15000
+        }
+      ],
+      "total": 26000,
+      "status": "delivered",
+      "date": "2026-03-05"
+    },
+    {
+      "id": "7",
+      "userId": 6,
+      "items": [
+        {
+          "productId": 9,
+          "quantity": 1,
+          "price": 109000
+        },
+        {
+          "productId": 17,
+          "quantity": 1,
+          "price": 32000
+        }
+      ],
+      "total": 141000,
+      "status": "shipped",
+      "date": "2026-03-16"
+    },
+    {
+      "id": "8",
+      "userId": 7,
+      "items": [
+        {
+          "productId": 11,
+          "quantity": 1,
+          "price": 16500
+        },
+        {
+          "productId": 25,
+          "quantity": 3,
+          "price": 9990
+        }
+      ],
+      "total": 46470,
+      "status": "processing",
+      "date": "2026-03-19"
+    },
+    {
+      "id": "9",
+      "userId": 8,
+      "items": [
+        {
+          "productId": 13,
+          "quantity": 2,
+          "price": 18500
+        },
+        {
+          "productId": 28,
+          "quantity": 1,
+          "price": 18500
+        }
+      ],
+      "total": 55500,
+      "status": "delivered",
+      "date": "2026-03-08"
+    },
+    {
+      "id": "10",
+      "userId": 2,
+      "items": [
+        {
+          "productId": 20,
+          "quantity": 1,
+          "price": 159000
+        }
+      ],
+      "total": 159000,
+      "status": "delivered",
+      "date": "2026-03-01"
+    },
+    {
+      "id": "11",
+      "userId": 3,
+      "items": [
+        {
+          "productId": 8,
+          "quantity": 1,
+          "price": 59900
+        },
+        {
+          "productId": 3,
+          "quantity": 1,
+          "price": 12500
+        }
+      ],
+      "total": 72400,
+      "status": "shipped",
+      "date": "2026-03-14"
+    },
+    {
+      "id": "12",
+      "userId": 1,
+      "items": [
+        {
+          "productId": 6,
+          "quantity": 1,
+          "price": 55000
+        }
+      ],
+      "total": 55000,
+      "status": "delivered",
+      "date": "2026-02-28"
+    }
+  ],
+  "categories": [
+    {
+      "id": "1",
+      "name": "electronics",
+      "description": "Electronic devices and gadgets"
+    },
+    {
+      "id": "2",
+      "name": "accessories",
+      "description": "Computer peripherals and accessories"
+    },
+    {
+      "id": "3",
+      "name": "audio",
+      "description": "Headphones, speakers, and audio equipment"
+    },
+    {
+      "id": "4",
+      "name": "components",
+      "description": "PC components and hardware"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

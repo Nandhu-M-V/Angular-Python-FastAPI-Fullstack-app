@@ -1,0 +1,12 @@
+{
+  "name": "fullstack-app",
+  "private": true,
+ "scripts": {
+    "frontend": "yarn --cwd client start",
+    "backend": "cd server && uvicorn app.main:app --reload",
+    "dev": "concurrently \"yarn frontend\" \"yarn backend\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.0"
+  }
+}

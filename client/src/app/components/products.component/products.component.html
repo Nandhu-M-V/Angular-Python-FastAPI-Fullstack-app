@@ -1,0 +1,107 @@
+<div class="p-6 bg-linear-to-bl from-gray-600 to-gray-900">
+    <div class="max-w-4/5 mx-auto">
+        <div class="mb-8">
+            <h1 class="text-4xl font-bold cursor-default text-white">Explore Products </h1>
+            <p class="text-gray-400 cursor-default">Find the best gear for your setup</p>
+        </div>
+
+        <div
+            class="sticky w-7/10 top-15 z-10 backdrop-blur-lg bg-gray-800/70 border border-gray-700 shadow-sm rounded-xl p-4 flex flex-col md:flex-row gap-4 mb-8"
+        >
+            <input
+                #searchInput
+                placeholder="🔍 Search products..."
+                (input)="productService.search.set(searchInput.value)"
+                class="flex-1 px-4 py-2 rounded-lg border border-gray-600 focus:ring-2 focus:ring-blue-500 outline-none bg-gray-900 text-white placeholder-gray-400"
+            />
+
+            <select
+                #cat
+                (change)="productService.category.set(cat.value)"
+                class="px-4 py-2 rounded-lg border border-gray-600 bg-gray-900 text-white focus:ring-2 focus:ring-blue-500 outline-none cursor-pointer"
+            >
+                <option value="">All Categories</option>
+                <option value="electronics">Electronics</option>
+                <option value="accessories">Accessories</option>
+                <option value="audio">Audio</option>
+                <option value="components">Components</option>
+            </select>
+        </div>
+
+        @if (productService.filtered().length === 0) {
+            <div class="text-center py-20">
+                <div class="text-6xl mb-4">🛒</div>
+                <p class="text-gray-400 text-lg">No products found</p>
+            </div>
+        } @else {
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                @for (product of productService.filtered(); track product.id) {
+                    <div
+                        (click)="goToProduct(product.id)"
+                        class="h-fit group bg-gray-800/80 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-700 hover:border-gray-600 cursor-pointer"
+                    >
+                        <div class="relative overflow-hidden">
+                            <img
+                                [src]="product.images[0]"
+                                [alt]="product.title"
+                                class="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-300"
+                            />
+
+                            <button
+                                (click)="
+                                    wishlistService.toggle(1, product.id); $event.stopPropagation()
+                                "
+                                class="absolute top-3 right-3 bg-gray-900/80 backdrop-blur p-2 cursor-pointer rounded-full shadow hover:scale-110 transition"
+                            >
+                                {{ wishlistService.isInWishlist(1, product.id) ? '❤️' : '🤍' }}
+                            </button>
+                        </div>
+
+                        <div class="p-5 flex flex-col h-full">
+                            <div class="flex justify-between text-xs mb-2">
+                                <span class="text-blue-400 font-medium">{{ product.brand }}</span>
+                                <span class="text-gray-500">{{ product.category }}</span>
+                            </div>
+
+                            <h2 class="font-semibold text-lg h-15 text-white line-clamp-2 mb-1">
+                                {{ product.title }}
+                            </h2>
+
+                            <p class="text-sm text-gray-400 line-clamp-2 mb-3">
+                                {{ product.description }}
+                            </p>
+
+                            @if (product.rating) {
+                                <div class="flex items-center gap-1 text-sm text-gray-400 mb-3">
+                                    <span class="text-yellow-500">★</span>
+                                    {{ product.rating }}
+                                </div>
+                            }
+
+                            <div class="mt-auto">
+                                <p class="text-2xl font-bold text-white mb-4">
+                                    ₹{{ product.price.toLocaleString() }}
+                                </p>
+
+                                <button
+                                    (click)="
+                                        cartService.add(1, product.id); $event.stopPropagation()
+                                    "
+                                    class="w-full bg-linear-to-r from-blue-600 to-indigo-600 cursor-pointer text-white py-2 rounded-lg hover:opacity-90 transition-all shadow-md"
+                                >
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+
+        @if (productService.filtered().length > 0) {
+            <div class="text-center text-sm text-gray-500 mt-10">
+                Showing {{ productService.filtered().length }} products
+            </div>
+        }
+    </div>
+</div>

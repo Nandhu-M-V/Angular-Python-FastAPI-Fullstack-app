@@ -1,0 +1,119 @@
+<nav class="w-full fixed top-0 z-50 backdrop-blur-lg bg-gray-900 border-b shadow-sm">
+    <div class="mx-auto px-6 py-3 flex justify-between">
+        <a
+            routerLink="/"
+            class="text-xl font-bold text-white cursor-pointer tracking-tight hover:text-indigo-600 transition"
+        >
+            Angular E-C
+        </a>
+
+        <div class="flex items-center gap-6 text-sm font-medium">
+            <a
+                routerLink="/"
+                routerLinkActive="text-indigo-600"
+                [routerLinkActiveOptions]="{ exact: true }"
+                class="text-gray-200 cursor-pointer hover:text-indigo-600 transition"
+            >
+                Products
+            </a>
+
+            <a
+                routerLink="/wishlist"
+                routerLinkActive="text-indigo-600"
+                class="relative cursor-pointer text-gray-200 hover:text-indigo-600 transition"
+            >
+                ❤️ Wishlist
+
+                @if (wishlistService.count()) {
+                    <span
+                        class="absolute -top-2 -right-3 text-xs bg-red-500 text-white px-1.5 rounded-full"
+                    >
+                        {{ wishlistService.count() }}
+                    </span>
+                }
+            </a>
+
+            <a
+                routerLink="/cart"
+                routerLinkActive="text-indigo-600"
+                class="relative cursor-pointer text-gray-200 hover:text-indigo-600 transition"
+            >
+                🛒 Cart
+
+                @if (cartService.count()) {
+                    <span
+                        class="absolute -top-2 -right-3 text-xs bg-indigo-600 text-white px-1.5 rounded-full"
+                    >
+                        {{ cartService.count() }}
+                    </span>
+                }
+            </a>
+
+            <div class="relative" (click)="toggleMenu($event)">
+                <button
+                    class="text-gray-200 hover:text-indigo-600 cursor-pointer transition flex items-center gap-1"
+                >
+                    More ⌄
+                </button>
+
+                @if (menuOpen) {
+                    <div
+                        class="absolute right-0 mt-3 w-48 bg-white cursor-pointer text-gray-800 rounded-xl shadow-lg border py-2 z-50"
+                        (click)="$event.stopPropagation()"
+                    >
+                        <a
+                            routerLink="/profile"
+                            class="block px-4 py-2 cursor-pointer hover:bg-gray-100 transition"
+                        >
+                            👤 Profile
+                        </a>
+
+                        <a class="block px-4 py-2 hover:bg-gray-100 transition cursor-pointer">
+                            ⚙️ Settings
+                        </a>
+
+                        <hr class="my-2" />
+
+                        <a
+                            class="block px-4 py-2 text-red-500 hover:bg-red-50 transition cursor-pointer"
+                        >
+                            🚪 Logout
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</nav>
+
+<main class="flex-1 pt-10">
+    <app-toast></app-toast>
+    <router-outlet />
+</main>
+
+<footer class="bg-gray-900 text-gray-300">
+    <div class="max-w-7xl mx-auto px-6 py-10 grid md:grid-cols-3 gap-8">
+        <div>
+            <h2 class="text-xl font-bold cursor-pointer text-white mb-2">⚡ Angular E-C</h2>
+            <p class="text-sm text-gray-400">Modern e-commerce experience built with Angular.</p>
+        </div>
+
+        <div class="flex flex-col gap-2 text-sm">
+            <h3 class="text-white font-semibold mb-2">Quick Links</h3>
+            <a routerLink="/" class="hover:text-indigo-400 transition">Products</a>
+            <a routerLink="/cart" class="hover:text-indigo-400 transition">Cart</a>
+            <a routerLink="/wishlist" class="hover:text-indigo-400 transition">Wishlist</a>
+        </div>
+
+        <div class="flex flex-col gap-2 text-sm">
+            <h3 class="text-white font-semibold mb-2">Support</h3>
+            <a class="hover:text-indigo-400 transition cursor-pointer">Contact</a>
+            <a class="hover:text-indigo-400 transition cursor-pointer">Privacy Policy</a>
+            <a class="hover:text-indigo-400 transition cursor-pointer">Terms</a>
+        </div>
+    </div>
+
+    <div class="text-center text-xs text-gray-500 border-t border-gray-800 py-4">
+        © 2026 Angular E-C. All rights reserved.
+    </div>
+</footer>
