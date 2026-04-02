@@ -1,16 +1,17 @@
 import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
 import { ProductService } from '../../services/products.service';
 import { CartService } from '../../services/cart.service';
 import { WishlistService } from '../../services/wishlist.service';
 import { AuthService } from '../../services/auth.service';
-// import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-products',
     standalone: true,
     templateUrl: './products.component.html',
-    imports: [],
+    imports: [CommonModule], 
 })
 export class ProductsComponent {
     productService = inject(ProductService);
@@ -19,8 +20,9 @@ export class ProductsComponent {
     authService = inject(AuthService);
     router = inject(Router);
 
-    // routing
-    goToProduct(id: string) {
+    user = this.authService.user;
+
+    goToProduct(id: number) {
         this.router.navigate(['/product', id]);
     }
 
@@ -37,13 +39,11 @@ export class ProductsComponent {
             specs: {},
         };
 
-        this.productService.addProduct(product).subscribe(() => {
-            this.productService.refresh();
-        });
+        this.productService.addProduct(product).subscribe();
     }
 
-    toggleWishlist(productId: string) {
-        const user = this.authService.user();
+    toggleWishlist(productId: number) {
+        const user = this.user();
         if (!user) return;
 
         this.wishlistService.toggle(user.id, productId);

@@ -1,5 +1,5 @@
 export interface WishlistItem {
     id: string;
-    userId: number;
-    productId: string; // ⚠️ string because your products use string IDs
+    user_id: number;
+    product_id: number; // 
 }

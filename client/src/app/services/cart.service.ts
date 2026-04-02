@@ -9,18 +9,20 @@ import { AuthService } from './auth.service';
 export class CartService {
     private http = inject(HttpClient);
     private toast = inject(ToastService);
-
-    private auth = inject(AuthService)
-
-    user = this.auth.user()?.id
-
+    private auth = inject(AuthService);
 
     private api = `http://127.0.0.1:8000/cart`;
 
     cart = signal<Cart[]>([]);
 
+    get userId() {
+        return this.auth.user()?.id;
+    }
+
     load() {
-        this.http.get<Cart[]>(`${this.api}/${this.user}`).subscribe({
+        if (!this.userId) return;
+
+        this.http.get<Cart[]>(`${this.api}/${this.userId}`).subscribe({
             next: (data) => this.cart.set(data),
             error: () => this.toast.show('Failed to load cart', 'error'),
         });
@@ -30,41 +32,49 @@ export class CartService {
         return this.cart().length;
     }
 
-    add(user_id: number, product_id: string) {
-        const existing = this.cart().find((c) => c.product_Id === product_id && c.user_Id === user_id);
+    add(product_id: number) {
+        if (!this.userId) return;
+
+        const existing = this.cart().find(
+            (c) => c.product_id === product_id
+        );
 
         if (existing) {
-            this.http
-                .patch(`${this.api}/${existing.id}`, {
-                    quantity: existing.quantity + 1,
-                })
-                .subscribe({
-                    next: () => {
-                        this.load();
-                        this.toast.show('Cart updated', 'success');
-                    },
-                    error: () => this.toast.show('Failed to update cart', 'error'),
-                });
+            this.cart.update((items) =>
+                items.map((item) =>
+                    item.id === existing.id
+                        ? { ...item, quantity: item.quantity + 1 }
+                        : item
+                )
+            );
+
+            this.http.patch(`${this.api}/${existing.id}`, {
+                quantity: existing.quantity + 1,
+            }).subscribe({
+                next: () => this.toast.show('Cart updated', 'success'),
+                error: () => {
+                    this.load();
+                    this.toast.show('Failed to update cart', 'error');
+                },
+            });
+
         } else {
-            this.http
-                .post(this.api, {
-                    user_id,
-                    product_id,
-                    quantity: 1,
-                })
-                .subscribe({
-                    next: () => {
-                        this.load();
-                        this.toast.show('Added to cart 🛒', 'success');
-                    },
-                    error: () => this.toast.show('Failed to add item', 'error'),
-                });
+            this.http.post<Cart>(this.api, {
+                user_id: this.userId,
+                product_id,
+                quantity: 1,
+            }).subscribe({
+                next: (newItem) => {
+                    this.cart.update((items) => [...items, newItem]);
+                    this.toast.show('Added to cart 🛒', 'success');
+                },
+                error: () => this.toast.show('Failed to add item', 'error'),
+            });
         }
     }
 
-    updateQuantity(cartItemId: string, newQuantity: number) {
+    updateQuantity(cartItemId: number, newQuantity: number) {
         const cartItem = this.cart().find((item) => item.id === cartItemId);
-
         if (!cartItem) return;
 
         if (newQuantity < 1) {
@@ -72,26 +82,36 @@ export class CartService {
             return;
         }
 
-        this.http
-            .patch(`${this.api}/${cartItemId}`, {
-                quantity: newQuantity,
-            })
-            .subscribe({
-                next: () => {
-                    this.load();
-                    this.toast.show('Quantity updated', 'success');
-                },
-                error: () => this.toast.show('Failed to update quantity', 'error'),
-            });
+        this.cart.update((items) =>
+            items.map((item) =>
+                item.id === cartItemId
+                    ? { ...item, quantity: newQuantity }
+                    : item
+            )
+        );
+
+        this.http.patch(`${this.api}/${cartItemId}`, {
+            quantity: newQuantity,
+        }).subscribe({
+            next: () => this.toast.show('Quantity updated', 'success'),
+            error: () => {
+                this.load();
+                this.toast.show('Failed to update quantity', 'error');
+            },
+        });
     }
 
-    remove(id: string) {
+    remove(id: number) {
+        const prev = this.cart();
+
+        this.cart.update((items) => items.filter((item) => item.id !== id));
+
         this.http.delete(`${this.api}/${id}`).subscribe({
-            next: () => {
-                this.load();
-                this.toast.show('Item removed', 'info');
+            next: () => this.toast.show('Item removed', 'info'),
+            error: () => {
+                this.cart.set(prev);
+                this.toast.show('Failed to remove item', 'error');
             },
-            error: () => this.toast.show('Failed to remove item', 'error'),
         });
     }
 }

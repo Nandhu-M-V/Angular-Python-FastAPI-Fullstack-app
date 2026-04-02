@@ -1,7 +1,6 @@
 import { Component, computed, inject } from '@angular/core';
 import { WishlistService } from '../../services/wishlist.service';
 import { ProductService } from '../../services/products.service';
-// import { SlicePipe } from '@angular/common';
 import { CartService } from '../../services/cart.service';
 import { Router } from '@angular/router';
 
@@ -12,24 +11,26 @@ import { Router } from '@angular/router';
 export class WishlistComponent {
     private wishlistService = inject(WishlistService);
     private productService = inject(ProductService);
-    router = inject(Router);
+    private router = inject(Router);
 
     cartService = inject(CartService);
 
-    userId = 1; // mock user
+    userId = 1;
 
-    // combine wishlist + products
+    
     wishlistProducts = computed(() => {
         const wishlist = this.wishlistService.wishlist();
         const products = this.productService.products();
 
         return wishlist
-            .filter((w) => w.userId === this.userId)
-            .map((w) => products.find((p) => p.id === w.productId))
-            .filter((p) => !!p);
+            .filter((w) => w.user_id === this.userId)
+            .map((w) =>
+                products.find((p) => p.id === w.product_id)
+            )
+            .filter((p): p is NonNullable<typeof p> => !!p);
     });
 
-    goToProduct(id: string) {
+    goToProduct(id: number) {
         this.router.navigate(['/product', id]);
     }
 
@@ -37,7 +38,8 @@ export class WishlistComponent {
         this.router.navigate(['/']);
     }
 
-    remove(productId: string) {
+    // ✅ FIXED
+    remove(productId: number) {
         this.wishlistService.toggle(this.userId, productId);
     }
 }

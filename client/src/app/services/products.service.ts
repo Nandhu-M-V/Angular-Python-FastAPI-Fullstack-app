@@ -1,9 +1,9 @@
-import { Injectable, signal, computed, inject } from '@angular/core';
+import { Injectable, signal, inject, effect } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { toSignal, toObservable } from '@angular/core/rxjs-interop';
-import { switchMap, tap } from 'rxjs';
-import { CreateProduct, Product } from '../models/products';
+import { CreateProduct, Product, ProductResponse } from '../models/products';
 import { CreateReview } from '../models/reviews';
+import { debounceTime } from 'rxjs';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
@@ -12,54 +12,95 @@ export class ProductService {
     private api = `http://127.0.0.1:8000/products`;
     private reviewsApi = `http://127.0.0.1:8000/reviews`;
 
-    private refreshTrigger = signal(0);
 
 
-    products = toSignal(
-        toObservable(this.refreshTrigger).pipe(
-            switchMap(() => this.http.get<Product[]>(this.api))
-        ),
-        { initialValue: [] }
-    );
-
-
+    // filters
     search = signal('');
     category = signal('');
 
-    filtered = computed(() => {
-        return this.products().filter(
-            (p) =>
-                p.title.toLowerCase().includes(this.search().toLowerCase()) &&
-                (this.category() ? p.category === this.category() : true)
-        );
-    });
+    // pagination
+    page = signal(1);
+    limit = 10;
+
+    //  state
+    products = signal<Product[]>([]);
+    total = signal(0);
+    loading = signal(false);
+
+    constructor() {
+
+        effect(() => {
+            this.load();
+        });
+    }
+
+    private searchTrigger = toSignal(
+    toObservable(this.search).pipe(debounceTime(400)),
+    { initialValue: '' }
+);
+
+
+    load() {
+        const skip = (this.page() - 1) * this.limit;
+
+        this.loading.set(true);
+
+        this.http
+            .get<ProductResponse>(this.api, {
+                params: {
+                    search: this.searchTrigger(),
+                    category: this.category(),
+                    skip,
+                    limit: this.limit,
+                },
+            })
+            .subscribe({
+                next: (res) => {
+                    this.products.set(res.data);
+                    this.total.set(res.total);
+                    this.loading.set(false);
+                },
+                error: () => {
+                    this.loading.set(false);
+                },
+            });
+    }
+
+
+    nextPage() {
+        if (this.page() * this.limit < this.total()) {
+            this.page.update((p) => p + 1);
+        }
+    }
+
+    prevPage() {
+        if (this.page() > 1) {
+            this.page.update((p) => p - 1);
+        }
+    }
+
+    setPage(p: number) {
+        this.page.set(p);
+    }
+
 
     getProduct(id: number) {
         return this.http.get<Product>(`${this.api}/${id}`);
     }
 
 
-reviewsByProduct(productId: number) {
-    return this.http.get<CreateReview[]>(
-        `${this.reviewsApi}?product_id=${productId}`
-    );
-}
+    reviewsByProduct(productId: number) {
+        return this.http.get<CreateReview[]>(
+            `${this.reviewsApi}?product_id=${productId}`
+        );
+    }
 
     addReview(review: CreateReview) {
-        return this.http.post<CreateReview>(this.reviewsApi, review).pipe(
-            tap(() => this.refresh())
-        );
+        return this.http.post<CreateReview>(this.reviewsApi, review);
     }
 
 
     addProduct(product: CreateProduct) {
-        return this.http.post<Product>(this.api, product).pipe(
-            tap(() => this.refresh())
-        );
-    }
-
-
-    refresh() {
-        this.refreshTrigger.update((v) => v + 1);
+        return this.http.post<Product>(this.api, product);
     }
 }

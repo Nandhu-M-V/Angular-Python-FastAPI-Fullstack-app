@@ -35,7 +35,7 @@ class ProductUpdate(BaseModel):
 
 
 # GET
-class ProductOut(BaseModel):
+class ProductOut(ProductBase):
     id: int
     title: str
     price: float

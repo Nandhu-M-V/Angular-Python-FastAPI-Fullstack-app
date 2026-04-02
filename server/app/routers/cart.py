@@ -13,10 +13,26 @@ router = APIRouter()
 def get_cart(user_id: int, db: Session = Depends(get_db)):
     return (
         db.query(CartItem)
-        .options(joinedload(CartItem.product))  # 🔥 THIS is key
+        .options(joinedload(CartItem.product))
         .filter(CartItem.user_id == user_id)
         .all()
     )
+
+
+@router.patch("/{cart_item_id}")
+def update_cart_item(cart_item_id: int, data: dict, db: Session = Depends(get_db)):
+    cart_item = db.query(CartItem).filter(CartItem.id == cart_item_id).first()
+
+    if not cart_item:
+        return {"error": "Cart item not found"}
+
+    if "quantity" in data:
+        cart_item.quantity = data["quantity"]
+
+    db.commit()
+    db.refresh(cart_item)
+
+    return cart_item
 
 
 @router.post("/")

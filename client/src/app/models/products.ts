@@ -1,5 +1,5 @@
 export interface Product {
-    id: string;
+    id: number;
     title: string;
     price: number;
     description: string;
@@ -11,5 +11,9 @@ export interface Product {
     specs?: Record<string, string | boolean>;
 }
 
+export interface ProductResponse {
+    data: Product[];
+    total: number;
+}
 
 export type CreateProduct = Omit<Product, 'id'>;
