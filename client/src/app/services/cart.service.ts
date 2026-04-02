@@ -3,18 +3,24 @@ import { HttpClient } from '@angular/common/http';
 import { base_url } from '../../env.constants';
 import { Cart } from '../models/cartItems';
 import { ToastService } from '../UI/services/toast.service';
+import { AuthService } from './auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
     private http = inject(HttpClient);
     private toast = inject(ToastService);
 
-    private api = `${base_url}cart`;
+    private auth = inject(AuthService)
+
+    user = this.auth.user()?.id
+
+
+    private api = `http://127.0.0.1:8000/cart`;
 
     cart = signal<Cart[]>([]);
 
     load() {
-        this.http.get<Cart[]>(this.api).subscribe({
+        this.http.get<Cart[]>(`${this.api}/${this.user}`).subscribe({
             next: (data) => this.cart.set(data),
             error: () => this.toast.show('Failed to load cart', 'error'),
         });
@@ -24,8 +30,8 @@ export class CartService {
         return this.cart().length;
     }
 
-    add(userId: number, productId: string) {
-        const existing = this.cart().find((c) => c.productId === productId && c.userId === userId);
+    add(user_id: number, product_id: string) {
+        const existing = this.cart().find((c) => c.product_Id === product_id && c.user_Id === user_id);
 
         if (existing) {
             this.http
@@ -42,8 +48,8 @@ export class CartService {
         } else {
             this.http
                 .post(this.api, {
-                    userId,
-                    productId,
+                    user_id,
+                    product_id,
                     quantity: 1,
                 })
                 .subscribe({

@@ -32,7 +32,7 @@ export class CartComponent {
 
         return cart.map((c) => ({
             ...c,
-            product: products.find((p) => p.id === c.productId),
+            product: products.find((p) => p.id === c.product_Id),
         }));
     });
 

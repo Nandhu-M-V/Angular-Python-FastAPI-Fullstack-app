@@ -585,13 +585,13 @@
   "wishlist": [],
   "cart": [
     {
-      "id": "3fc1",
+      "id": 1,
       "userId": 1,
       "productId": "17",
       "quantity": 1
     },
     {
-      "id": "6228",
+      "id": 2,
       "userId": 1,
       "productId": "2",
       "quantity": 1
@@ -726,14 +726,7 @@
       "comment": "Best mechanical keyboard I've owned. Premium build quality.",
       "date": "2026-02-05"
     },
-    {
-      "id": "17",
-      "productId": "30",
-      "userId": "4",
-      "rating": 5,
-      "comment": "7800X3D is a gaming beast! Perfect for my new build.",
-      "date": "2026-02-01"
-    },
+    
     {
       "id": "18",
       "productId": "6",
@@ -757,46 +750,6 @@
       "rating": 5,
       "comment": "Best gaming headset I've ever used. Comfortable for long sessions.",
       "date": "2026-01-20"
-    },
-    {
-      "id": "738d1df2-feb2-4763-84de-ec6237e340a0",
-      "comment": "reviewwwww",
-      "rating": 4,
-      "productId": "2",
-      "userId": "1",
-      "date": "2026-03-24T05:12:28.948Z"
-    },
-    {
-      "id": "cfa8",
-      "comment": "4 stars",
-      "rating": 4,
-      "productId": "1",
-      "userId": 1,
-      "date": "2026-03-24T05:45:12.480Z"
-    },
-    {
-      "id": "78dc",
-      "comment": "trtyuioop[p",
-      "rating": 4,
-      "productId": "1",
-      "userId": 1,
-      "date": "2026-03-24T12:37:50.099Z"
-    },
-    {
-      "id": "541a",
-      "comment": "phone",
-      "rating": 4,
-      "productId": "1",
-      "userId": 1,
-      "date": "2026-03-25T10:37:35.867Z"
-    },
-    {
-      "id": "0509",
-      "comment": "ssss",
-      "rating": 2,
-      "productId": "1",
-      "userId": 1,
-      "date": "2026-03-25T10:45:28.054Z"
     }
   ],
   "orders": [
@@ -889,11 +842,6 @@
           "productId": 22,
           "quantity": 1,
           "price": 16500
-        },
-        {
-          "productId": 30,
-          "quantity": 1,
-          "price": 38000
         }
       ],
       "total": 169500,

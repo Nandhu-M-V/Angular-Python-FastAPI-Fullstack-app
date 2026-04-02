@@ -4,6 +4,7 @@
  "scripts": {
     "frontend": "yarn --cwd client start",
     "backend": "cd server && uvicorn app.main:app --reload",
+    "json": "cd client && yarn server",
     "dev": "concurrently \"yarn frontend\" \"yarn backend\""
   },
   "devDependencies": {

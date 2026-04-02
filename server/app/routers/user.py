@@ -1,10 +1,13 @@
 # app/routers/user.py
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
+from app.database import get_db
+from app.models.models import User
 
 router = APIRouter()
 
 
 @router.get("/")
-def get_users():
-    return {"message": "users route working"}
+def get_users(db: Session = Depends(get_db)):
+    return db.query(User).all()

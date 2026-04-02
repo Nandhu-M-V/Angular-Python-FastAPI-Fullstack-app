@@ -1,252 +1,225 @@
 @if (product(); as p) {
-    <div class="min-h-screen bg-linear-to-br from-gray-800 via-gray-700 to-gray-900 p-6">
-        <div class="max-w-7xl mx-auto">
-            <button
-                (click)="goBack()"
-                class="mb-6 flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
-            >
-                ← Back to Products
-            </button>
+<div class="min-h-screen bg-linear-to-br from-gray-800 via-gray-700 to-gray-900 p-6">
+    <div class="max-w-7xl mx-auto">
+        <button
+            (click)="goBack()"
+            class="mb-6 flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+        >
+            ← Back to Products
+        </button>
 
-            <div class="grid lg:grid-cols-2 gap-8">
-                <div class="space-y-4">
-                    <div
-                        class="bg-gray-800/80 rounded-2xl p-6 backdrop-blur-sm border border-gray-700"
-                    >
-                        <img
-                            [src]="selectedImage || p.images[0]"
-                            [alt]="p.title"
-                            class="w-full h-96 object-contain rounded-xl"
-                        />
-                    </div>
-
-                    <div class="flex gap-3 overflow-x-auto pb-2">
-                        @for (img of p.images; track img) {
-                            <img
-                                [src]="img"
-                                (click)="selectedImage = img"
-                                class="h-20 w-20 object-contain bg-gray-800/80 rounded-lg border-2 cursor-pointer transition-all duration-200 hover:scale-105"
-                                [class.border-indigo-500]="selectedImage === img"
-                                [class.border-gray-700]="selectedImage !== img"
-                            />
-                        }
-                    </div>
+        <div class="grid lg:grid-cols-2 gap-8">
+            <div class="space-y-4">
+                <div class="bg-gray-800/80 rounded-2xl p-6 backdrop-blur-sm border border-gray-700">
+                    <img
+                        [src]="selectedImage || p.images?.[0]"
+                        [alt]="p.title"
+                        class="w-full h-96 object-contain rounded-xl"
+                    />
                 </div>
 
-                <div class="space-y-6">
-                    <div>
-                        @if (p.brand) {
-                            <span
-                                class="text-indigo-400 text-sm font-semibold uppercase tracking-wide"
-                            >
-                                {{ p.brand }}
-                            </span>
-                        }
-                        <h1 class="text-4xl font-bold text-white mt-2 leading-tight">
-                            {{ p.title }}
-                        </h1>
-                    </div>
-
-                    <div class="flex items-center gap-4 flex-wrap">
-                        <div class="flex items-center gap-1 bg-gray-800 px-3 py-1.5 rounded-lg">
-                            <span class="text-yellow-400 text-lg">★</span>
-                            <span class="text-white font-semibold">{{ p.rating }}</span>
-                            <span class="text-gray-400 text-sm">/5</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <span class="text-gray-400">Stock:</span>
-                            <span
-                                [class.text-red-400]="p.stock < 10"
-                                [class.text-green-400]="p.stock >= 10"
-                                class="font-semibold"
-                            >
-                                {{ p.stock }} units
-                            </span>
-                        </div>
-                        @if (p.stock < 5) {
-                            <span
-                                class="bg-red-500/20 text-red-400 px-3 py-1 rounded-full text-sm font-medium"
-                            >
-                                Low Stock
-                            </span>
-                        }
-                    </div>
-
-                    <div class="bg-linear-to-r rounded-xl p-4">
-                        <span class="text-4xl font-bold text-white"
-                            >₹{{ p.price.toLocaleString() }}</span
-                        >
-                        @if (p.price > 50000) {
-                            <span class="ml-3 text-green-300 text-sm">Free Shipping</span>
-                        }
-                    </div>
-
-                    <div class="bg-gray-800/30 rounded-xl p-4 border border-gray-700">
-                        <h3 class="text-gray-300 font-semibold mb-2">Description</h3>
-                        <p class="text-gray-400 leading-relaxed">
-                            {{ p.description }}
-                        </p>
-                    </div>
-
-                    <div class="flex gap-3">
-                        <button
-                            (click)="cartService.add(1, p.id)"
-                            class="flex-1 cursor-pointer bg-linear-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white py-3 rounded-xl font-semibold transition-all duration-200 transform hover:scale-[1.02] shadow-lg"
-                        >
-                            🛒 Add to Cart
-                        </button>
-
-                        <button
-                            (click)="wishlistService.toggle(1, p.id)"
-                            class="px-6 py-3 rounded-xl cursor-pointer border-2 transition-all duration-200 hover:scale-105"
-                            [class.bg-red-100]="wishlistService.isInWishlist(1, p.id)"
-                            [class.border-red-500]="wishlistService.isInWishlist(1, p.id)"
-                            [class.border-gray-600]="!wishlistService.isInWishlist(1, p.id)"
-                            [class.hover:border-red-500]="!wishlistService.isInWishlist(1, p.id)"
-                        >
-                            <span class="text-2xl">
-                                {{ wishlistService.isInWishlist(1, p.id) ? '❤️' : '🤍' }}
-                            </span>
-                        </button>
-                    </div>
-
-                    @if (p.specs) {
-                        <div class="bg-gray-800/30 rounded-xl p-4 border border-gray-700">
-                            <h3 class="text-gray-300 font-semibold mb-3 flex items-center gap-2">
-                                ⚙️ Specifications
-                            </h3>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                @for (entry of specEntries(); track entry[0]) {
-                                    <div
-                                        class="flex justify-between items-center py-2 border-b border-gray-700"
-                                    >
-                                        <span class="text-gray-400 text-sm capitalize">{{
-                                            entry[0]
-                                        }}</span>
-                                        <span class="text-white font-medium">{{ entry[1] }}</span>
-                                    </div>
-                                }
-                            </div>
-                        </div>
+                <div class="flex gap-3 overflow-x-auto pb-2">
+                    @for (img of p.images ?? []; track img) {
+                        <img
+                            [src]="img"
+                            (click)="selectedImage = img"
+                            class="h-20 w-20 object-contain bg-gray-800/80 rounded-lg border-2 cursor-pointer transition-all duration-200 hover:scale-105"
+                            [class.border-indigo-500]="selectedImage === img"
+                            [class.border-gray-700]="selectedImage !== img"
+                        />
                     }
                 </div>
             </div>
 
-            <div class="mt-12">
-                <div class="flex items-center justify-between mb-6">
-                    <h2 class="text-2xl font-bold text-white">Customer Reviews</h2>
-                    <div class="flex items-center gap-2">
-                        <span class="text-yellow-400 text-xl">★</span>
+            <div class="space-y-6">
+                <div>
+                    @if (p.brand) {
+                        <span class="text-indigo-400 text-sm font-semibold uppercase tracking-wide">
+                            {{ p.brand }}
+                        </span>
+                    }
+                    <h1 class="text-4xl font-bold text-white mt-2 leading-tight">
+                        {{ p.title }}
+                    </h1>
+                </div>
+
+                <div class="flex items-center gap-4 flex-wrap">
+                    <div class="flex items-center gap-1 bg-gray-800 px-3 py-1.5 rounded-lg">
+                        <span class="text-yellow-400 text-lg">★</span>
                         <span class="text-white font-semibold">{{ p.rating }}</span>
-                        <span class="text-gray-400">average rating</span>
+                        <span class="text-gray-400 text-sm">/5</span>
                     </div>
-                </div>
-
-                <div
-                    class="bg-gray-900/40 backdrop-blur-md p-8 rounded-2xl border border-white/10 shadow-xl"
-                >
-                    <div class="flex items-center justify-between mb-6">
-                        <h3 class="text-xl font-bold text-white tracking-tight">Write a review</h3>
-                        <div
-                            class="flex items-center px-3 py-1 bg-gray-800/50 rounded-full border border-gray-700"
+                    <div class="flex items-center gap-2">
+                        <span class="text-gray-400">Stock:</span>
+                        <span
+                            [class.text-red-400]="p.stock < 10"
+                            [class.text-green-400]="p.stock >= 10"
+                            class="font-semibold"
                         >
-                            <span class="text-yellow-400 mr-1">★</span>
-                            <span class="text-gray-200 text-sm font-medium"
-                                >{{ reviewForm.value.rating || 0 }} / 5</span
-                            >
-                        </div>
+                            {{ p.stock }} units
+                        </span>
                     </div>
-
-                    <form [formGroup]="reviewForm" (ngSubmit)="submitReview()" class="space-y-6">
-                        <div class="flex flex-col gap-2">
-                            <label
-                                class="text-xs font-semibold uppercase tracking-wider text-gray-400 ml-1"
-                                >Overall Rating</label
-                            >
-                            <div
-                                class="flex items-center gap-1.5 p-3 bg-gray-800/30 rounded-xl border border-gray-700/50 w-fit"
-                            >
-                                @for (r of [1, 2, 3, 4, 5]; track r) {
-                                    <button
-                                        type="button"
-                                        (click)="reviewForm.controls.rating.setValue(r)"
-                                        class="text-3xl transition-all duration-200 active:scale-90"
-                                        [class.text-yellow-400]="
-                                            r <= (reviewForm.value.rating || 0)
-                                        "
-                                        [class.text-gray-700]="r > (reviewForm.value.rating || 0)"
-                                    >
-                                        ★
-                                    </button>
-                                }
-                            </div>
-                            @if (
-                                reviewForm.controls.rating.touched &&
-                                reviewForm.controls.rating.invalid
-                            ) {
-                                <span class="text-red-400 text-xs mt-1 animate-pulse"
-                                    >Please select a star rating</span
-                                >
-                            }
-                        </div>
-
-                        <div class="flex flex-col gap-2">
-                            <label
-                                class="text-xs font-semibold uppercase tracking-wider text-gray-400 ml-1"
-                                >Your Review</label
-                            >
-                            <textarea
-                                formControlName="comment"
-                                rows="3"
-                                placeholder="What did you think about the experience?"
-                                class="w-full p-4 rounded-xl bg-gray-950/50 border border-gray-700 text-white placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all resize-none"
-                            ></textarea>
-
-                            <div class="flex justify-between items-center">
-                                @if (
-                                    reviewForm.controls.comment.touched &&
-                                    reviewForm.controls.comment.invalid
-                                ) {
-                                    <p class="text-red-400 text-xs">
-                                        Minimum 3 characters required
-                                    </p>
-                                } @else {
-                                    <span></span>
-                                }
-                                <span class="text-gray-500 text-[10px] uppercase font-bold"
-                                    >{{ reviewForm.value.comment?.length || 0 }} chars</span
-                                >
-                            </div>
-                        </div>
-
-                        <button
-                            type="submit"
-                            [disabled]="reviewForm.invalid"
-                            class="w-fit mx-134 py-4 px-6 rounded-xl font-bold text-white transition-all duration-300 bg-linear-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 shadow-lg shadow-indigo-500/20 active:scale-[0.98] disabled:opacity-40 disabled:grayscale disabled:cursor-not-allowed"
-                        >
-                            Post Review
-                        </button>
-                    </form>
-                </div>
-
-                <div class="space-y-4">
-                    @for (
-                        review of reviews().filter(r => r.productId === productId);
-                        track review.id
-                    ) {
-                        <div class="bg-gray-800/80 rounded-xl p-5 border border-gray-700">
-                            <div class="flex justify-between mb-2">
-                                <p class="text-white font-semibold">User {{ review.userId }}</p>
-                                <span class="text-yellow-400">★ {{ review.rating }}</span>
-                            </div>
-                            <p class="text-gray-300">{{ review.comment }}</p>
-                            <p class="text-gray-500 text-sm">{{ review.date.split('T')[0] }}</p>
-                        </div>
-                    } @empty {
-                        <p class="text-gray-400">No reviews yet</p>
+                    @if (p.stock < 5) {
+                        <span class="bg-red-500/20 text-red-400 px-3 py-1 rounded-full text-sm font-medium">
+                            Low Stock
+                        </span>
                     }
                 </div>
+
+                <div class="bg-linear-to-r rounded-xl p-4">
+                    <span class="text-4xl font-bold text-white">
+                        ₹{{ p.price.toLocaleString() }}
+                    </span>
+                    @if (p.price > 50000) {
+                        <span class="ml-3 text-green-300 text-sm">Free Shipping</span>
+                    }
+                </div>
+
+                <div class="bg-gray-800/30 rounded-xl p-4 border border-gray-700">
+                    <h3 class="text-gray-300 font-semibold mb-2">Description</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        {{ p.description }}
+                    </p>
+                </div>
+
+                <div class="flex gap-3">
+                    <button
+                        (click)="cartService.add(1, p.id)"
+                        class="flex-1 cursor-pointer bg-linear-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white py-3 rounded-xl font-semibold transition-all duration-200 transform hover:scale-[1.02] shadow-lg"
+                    >
+                        🛒 Add to Cart
+                    </button>
+
+                    <button
+                        (click)="wishlistService.toggle(1, p.id)"
+                        class="px-6 py-3 rounded-xl cursor-pointer border-2 transition-all duration-200 hover:scale-105"
+                        [class.bg-red-100]="wishlistService.isInWishlist(1, p.id)"
+                        [class.border-red-500]="wishlistService.isInWishlist(1, p.id)"
+                        [class.border-gray-600]="!wishlistService.isInWishlist(1, p.id)"
+                        [class.hover:border-red-500]="!wishlistService.isInWishlist(1, p.id)"
+                    >
+                        <span class="text-2xl">
+                            {{ wishlistService.isInWishlist(1, p.id) ? '❤️' : '🤍' }}
+                        </span>
+                    </button>
+                </div>
+
+                @if (p.specs) {
+                    <div class="bg-gray-800/30 rounded-xl p-4 border border-gray-700">
+                        <h3 class="text-gray-300 font-semibold mb-3 flex items-center gap-2">
+                            ⚙️ Specifications
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            @for (entry of specEntries(); track entry[0]) {
+                                <div class="flex justify-between items-center py-2 border-b border-gray-700">
+                                    <span class="text-gray-400 text-sm capitalize">
+                                        {{ entry[0] }}
+                                    </span>
+                                    <span class="text-white font-medium">
+                                        {{ entry[1] }}
+                                    </span>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="mt-12">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold text-white">Customer Reviews</h2>
+                <div class="flex items-center gap-2">
+                    <span class="text-yellow-400 text-xl">★</span>
+                    <span class="text-white font-semibold">{{ p.rating }}</span>
+                    <span class="text-gray-400">average rating</span>
+                </div>
+            </div>
+
+            <div class="bg-gray-900/40 backdrop-blur-md p-8 rounded-2xl border border-white/10 shadow-xl">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-bold text-white tracking-tight">Write a review</h3>
+                    <div class="flex items-center px-3 py-1 bg-gray-800/50 rounded-full border border-gray-700">
+                        <span class="text-yellow-400 mr-1">★</span>
+                        <span class="text-gray-200 text-sm font-medium">
+                            {{ reviewForm.value.rating || 0 }} / 5
+                        </span>
+                    </div>
+                </div>
+
+                <form [formGroup]="reviewForm" (ngSubmit)="submitReview()" class="space-y-6">
+                    <div class="flex flex-col gap-2">
+                        <label class="text-xs font-semibold uppercase tracking-wider text-gray-400 ml-1">
+                            Overall Rating
+                        </label>
+                        <div class="flex items-center gap-1.5 p-3 bg-gray-800/30 rounded-xl border border-gray-700/50 w-fit">
+                            @for (r of [1, 2, 3, 4, 5]; track r) {
+                                <button
+                                    type="button"
+                                    (click)="reviewForm.controls.rating.setValue(r)"
+                                    class="text-3xl transition-all duration-200 active:scale-90"
+                                    [class.text-yellow-400]="r <= (reviewForm.value.rating || 0)"
+                                    [class.text-gray-700]="r > (reviewForm.value.rating || 0)"
+                                >
+                                    ★
+                                </button>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <label class="text-xs font-semibold uppercase tracking-wider text-gray-400 ml-1">
+                            Your Review
+                        </label>
+                        <textarea
+                            formControlName="comment"
+                            rows="3"
+                            placeholder="What did you think about the experience?"
+                            class="w-full p-4 rounded-xl bg-gray-950/50 border border-gray-700 text-white placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all resize-none"
+                        ></textarea>
+
+                        <div class="flex justify-between items-center">
+                            @if (
+                                reviewForm.controls.comment.touched &&
+                                reviewForm.controls.comment.invalid
+                            ) {
+                                <p class="text-red-400 text-xs">
+                                    Minimum 3 characters required
+                                </p>
+                            } @else {
+                                <span></span>
+                            }
+                            <span class="text-gray-500 text-[10px] uppercase font-bold">
+                                {{ reviewForm.value.comment?.length || 0 }} chars
+                            </span>
+                        </div>
+                    </div>
+
+                    <button
+                        type="submit"
+                        [disabled]="reviewForm.invalid"
+                        class="w-fit mx-134 py-4 px-6 rounded-xl font-bold text-white transition-all duration-300 bg-linear-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 shadow-lg shadow-indigo-500/20 active:scale-[0.98] disabled:opacity-40 disabled:grayscale disabled:cursor-not-allowed"
+                    >
+                        Post Review
+                    </button>
+                </form>
+            </div>
+
+            <div class="space-y-4">
+                @for (review of reviews(); track review.product_id) {
+                    <div class="bg-gray-800/80 rounded-xl p-5 border border-gray-700">
+                        <div class="flex justify-between mb-2">
+                            <p class="text-white font-semibold">User {{ review.user_id }}</p>
+                            <span class="text-yellow-400">★ {{ review.rating }}</span>
+                        </div>
+                        <p class="text-gray-300">{{ review.comment }}</p>
+
+                    </div>
+                } @empty {
+                    <p class="text-gray-400">No reviews yet</p>
+                }
             </div>
         </div>
     </div>
+</div>
 }

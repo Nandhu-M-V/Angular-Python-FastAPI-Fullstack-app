@@ -1,8 +1,6 @@
-export interface Review {
-    id?: string;
-    productId: string;
-    userId?: number;
-    rating?: number;
-    comment?: string;
-    date: string;
+export interface CreateReview {
+    product_id: number;
+    user_id: number;
+    rating: number;
+    comment: string;
 }

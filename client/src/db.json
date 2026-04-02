@@ -582,18 +582,35 @@
       "join_date": "2025-08-14"
     }
   ],
-  "wishlist": [],
+  "wishlist": [
+    {
+      "id": "2cce",
+      "userId": 1,
+      "productId": 2
+    },
+    {
+      "id": "04b3",
+      "userId": 1,
+      "productId": 1
+    }
+  ],
   "cart": [
     {
-      "id": "3fc1",
+      "id": "c3be",
       "userId": 1,
-      "productId": "17",
+      "productId": 30,
       "quantity": 1
     },
     {
-      "id": "6228",
+      "id": "0fd8",
       "userId": 1,
-      "productId": "2",
+      "productId": 1,
+      "quantity": 1
+    },
+    {
+      "id": "330c",
+      "userId": 1,
+      "productId": 3,
       "quantity": 1
     }
   ],

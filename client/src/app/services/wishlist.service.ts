@@ -11,7 +11,7 @@ export class WishlistService {
     private http = inject(HttpClient);
     private toast = inject(ToastService);
 
-    private api = `${base_url}wishlist`;
+    private api = `http://127.0.0.1:8000/wishlist/1`;
 
     private refreshTrigger = signal(0);
 
