@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
     selector: 'app-products',
     standalone: true,
     templateUrl: './products.component.html',
-    imports: [CommonModule], 
+    imports: [CommonModule],
 })
 export class ProductsComponent {
     productService = inject(ProductService);
@@ -21,6 +21,12 @@ export class ProductsComponent {
     router = inject(Router);
 
     user = this.authService.user;
+
+    cart = this.cartService
+
+    constructor () {
+       this.cart.load()
+    }
 
     goToProduct(id: number) {
         this.router.navigate(['/product', id]);

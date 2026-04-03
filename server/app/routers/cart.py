@@ -19,7 +19,7 @@ def get_cart(user_id: int, db: Session = Depends(get_db)):
     )
 
 
-@router.patch("/{cart_item_id}")
+@router.patch("/{cart_item_id}", response_model=CartItemOut)
 def update_cart_item(cart_item_id: int, data: dict, db: Session = Depends(get_db)):
     cart_item = db.query(CartItem).filter(CartItem.id == cart_item_id).first()
 
@@ -32,14 +32,30 @@ def update_cart_item(cart_item_id: int, data: dict, db: Session = Depends(get_db
     db.commit()
     db.refresh(cart_item)
 
+    cart_item = (
+        db.query(CartItem)
+        .options(joinedload(CartItem.product))
+        .filter(CartItem.id == cart_item.id)
+        .first()
+    )
+
     return cart_item
 
 
-@router.post("/")
+@router.post("/", response_model=CartItemOut)
 def add_to_cart(item: CartItemCreate, db: Session = Depends(get_db)):
     new_item = CartItem(**item.model_dump())
     db.add(new_item)
     db.commit()
+    db.refresh(new_item)
+
+    new_item = (
+        db.query(CartItem)
+        .options(joinedload(CartItem.product))
+        .filter(CartItem.id == new_item.id)
+        .first()
+    )
+
     return new_item
 
 

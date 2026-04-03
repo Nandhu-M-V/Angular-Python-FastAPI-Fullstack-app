@@ -35,11 +35,19 @@ export class CartService {
     add(product_id: number) {
         if (!this.userId) return;
 
+        if (this.cart().length === 0) {
+            this.load();
+        }
+
         const existing = this.cart().find(
-            (c) => c.product_id === product_id
-        );
+    (c) => c.product?.id === product_id
+);
+
+        console.log(this.cart())
 
         if (existing) {
+
+            // if (this.cart)
             this.cart.update((items) =>
                 items.map((item) =>
                     item.id === existing.id

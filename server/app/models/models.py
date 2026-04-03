@@ -13,6 +13,7 @@ class User(Base):
     email = Column(String, unique=True, nullable=False, index=True)
     password_hash = Column(String)
     join_date = Column(DateTime, default=datetime.utcnow)
+    role = Column(String, default="user")
 
     cart_items = relationship("CartItem", back_populates="user", cascade="all, delete")
     orders = relationship("Order", back_populates="user", cascade="all, delete")
