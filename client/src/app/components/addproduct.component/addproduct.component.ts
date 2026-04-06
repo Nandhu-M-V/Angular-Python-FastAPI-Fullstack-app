@@ -12,7 +12,7 @@ import { ToastService } from '../../UI/services/toast.service';
 })
 export class CreateProductComponent {
 
-  private fb = inject(NonNullableFormBuilder); // ✅ avoids null issues
+  private fb = inject(NonNullableFormBuilder);
   private productService = inject(ProductService);
   private router = inject(Router);
   private toast = inject(ToastService);
@@ -35,12 +35,12 @@ export class CreateProductComponent {
 
     this.loading = true;
 
-    const raw = this.form.getRawValue(); // ✅ safer than value
+    const raw = this.form.getRawValue();
 
     let images: string[] = [];
     let specs: Record<string, any> = {};
 
-    // ✅ images parsing
+    
     if (raw.images) {
       images = raw.images
         .split(',')

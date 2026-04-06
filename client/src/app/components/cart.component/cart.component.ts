@@ -1,5 +1,6 @@
 import { Component, inject, computed, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { payNow } from '../../services/checkout';
 
 import { CartService } from '../../services/cart.service';
 import { Router } from '@angular/router';
@@ -15,9 +16,13 @@ export class CartComponent {
   cartService = inject(CartService);
   router = inject(Router);
 
+
   loadEffect = effect(() => {
     this.cartService.load();
   });
+
+
+
 
   goToProducts() {
     this.router.navigate(['/']);
@@ -48,4 +53,37 @@ export class CartComponent {
 
     this.cartService.updateQuantity(cartItemId, newQuantity);
   }
+
+
+
+//   mockcheckout
+
+    payNow(amt:number) {
+  const options = {
+    key: 'rzp_test_SaAroz2nBjI0Wb',
+    amount: amt*100,
+    currency: 'INR',
+    name: 'Demo Store',
+    description: 'Test Payment',
+
+    handler: function (response: any) {
+      alert('Payment Successful!');
+      console.log(response);
+    },
+
+    prefill: {
+      name: 'Test User',
+      email: 'test@example.com',
+      contact: '9999999999'
+    },
+
+    theme: {
+      color: '#0f172a'
+    }
+  };
+
+  const rzp = new (window as any).Razorpay(options);
+  rzp.open();
+}
+
 }

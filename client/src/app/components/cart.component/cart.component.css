@@ -1,0 +1,12 @@
+.pay-btn {
+  background: #0f172a;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+.pay-btn:hover {
+  background: #1e293b;
+}
