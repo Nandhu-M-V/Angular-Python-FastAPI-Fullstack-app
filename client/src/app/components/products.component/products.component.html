@@ -70,7 +70,7 @@
               />
               <button
                 (click)="toggleWishlist(product.id); $event.stopPropagation()"
-                class="absolute top-3 right-3 bg-gray-900/60 backdrop-blur-md p-2.5 rounded-full hover:bg-gray-900 transition-colors"
+                class="absolute top-3 right-3 bg-gray-900/60 backdrop-blur-md p-2.5 cursor-pointer rounded-full hover:bg-gray-900 transition-colors"
               >
                 {{ wishlistService.isInWishlist(product.id) ? '❤️' : '🤍' }}
               </button>
@@ -106,7 +106,7 @@
                   (click)="cartService.add(product.id); $event.stopPropagation()"
                   class="w-full bg-indigo-600 text-white py-3 rounded-xl font-bold transition-all
                          hover:bg-indigo-500 hover:shadow-lg active:scale-[0.97]
-                         flex items-center justify-center gap-2"
+                         flex items-center justify-center gap-2 cursor-pointer "
                 >
                   <span>Add to Cart</span>
                   <span class="text-lg">🛒</span>

@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import Optional
 from datetime import datetime
 
 
@@ -15,7 +16,8 @@ class ReviewCreate(ReviewBase):
 
 class ReviewOut(ReviewBase):
     id: int
-    date: datetime
+    date: Optional[datetime]
+    username: Optional[str] = None
 
     class Config:
         from_attributes = True

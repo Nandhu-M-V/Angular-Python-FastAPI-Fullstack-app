@@ -5,7 +5,7 @@ import { CartService } from '../../services/cart.service';
 import { WishlistService } from '../../services/wishlist.service';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ToastService } from '../../UI/services/toast.service';
-import { CreateReview } from '../../models/reviews';
+import { CreateReview,Review } from '../../models/reviews';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { AuthService } from '../../services/auth.service';
 
@@ -31,7 +31,7 @@ export class ProductDetailComponent {
   productId = Number(this.route.snapshot.paramMap.get('id'));
 
   product = signal<any | null>(null);
-  reviews = signal<CreateReview[]>([]);
+  reviews = signal<Review[]>([]);
   error = signal<string | null>(null);
 
   reviewForm = this.fb.nonNullable.group({
@@ -94,11 +94,14 @@ export class ProductDetailComponent {
   submitReview() {
     if (this.reviewForm.invalid || !this.productId) return;
 
-    const review = {
+    const userId = this.auth.user()?.id;
+    if (userId === undefined) return;
+
+    const review :CreateReview = {
       comment: this.reviewForm.value.comment!,
       rating: this.reviewForm.value.rating!,
       product_id: Number(this.productId),
-      user_id: 1,
+      user_id: this.auth.user()?.id,
     };
 
     this.productService.addReview(review).subscribe({

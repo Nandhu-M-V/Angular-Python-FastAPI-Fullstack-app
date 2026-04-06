@@ -12,11 +12,13 @@ router = APIRouter()
 
 
 @router.get("/", response_model=list[CartItemOut])
-def get_cart(user=Depends(get_current_user), db: Session = Depends(get_db)):
+def get_cart(
+    # user=Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
     return (
-        db.query(CartItem)
-        .options(joinedload(CartItem.product))
-        .filter(CartItem.user_id == int(user["id"]))
+        db.query(CartItem).options(joinedload(CartItem.product))
+        # .filter(CartItem.user_id == int(user["id"]))
         .all()
     )
 
@@ -34,7 +36,7 @@ def update_cart_item(
     if not cart_item:
         raise HTTPException(status_code=404, detail="Cart item not found")
 
-    if cart_item.user_id != int(user["id"]):  # 🔥 security check
+    if cart_item.user_id != int(user["id"]):
         raise HTTPException(status_code=403, detail="Not authorized")
 
     if "quantity" in data:

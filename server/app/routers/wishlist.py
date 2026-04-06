@@ -11,8 +11,15 @@ router = APIRouter()
 
 
 @router.get("/")
-def get_wishlist(user=Depends(get_current_user), db: Session = Depends(get_db)):
-    return db.query(Wishlist).filter(Wishlist.user_id == int(user["id"])).all()
+def get_wishlist(
+    # user=Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    return (
+        db.query(Wishlist)
+        # .filter(Wishlist.user_id == int(user["id"]))
+        .all()
+    )
 
 
 @router.post("/")

@@ -44,7 +44,7 @@
           />
 
           <span
-            class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 hover:text-white"
+            class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 hover:text-blue-700"
             (click)="togglePassword()"
           >
             @if (showPassword()) { Hide } @else { Show }
@@ -55,7 +55,7 @@
       <button
         type="submit"
         [disabled]="loading"
-        class="w-full bg-indigo-600 hover:bg-indigo-700 p-3 rounded-lg font-semibold flex justify-center items-center gap-2 transition disabled:opacity-60"
+        class="w-full bg-indigo-600 hover:bg-indigo-700 p-3 cursor-pointer rounded-lg font-semibold flex justify-center items-center gap-2 transition disabled:opacity-60"
       >
         @if (loading) {
           <span class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>

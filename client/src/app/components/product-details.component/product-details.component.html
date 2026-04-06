@@ -104,7 +104,7 @@
             @if (isAdmin()) {
                 <button
                     (click)="deleteProduct()"
-                    class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg mt-4"
+                    class="bg-red-600 hover:bg-red-700 cursor-pointer text-white px-4 py-2 rounded-lg mt-4"
                 >
                     🗑️ Delete Product
                 </button>
@@ -142,7 +142,7 @@
         <div class="bg-gray-900/40 backdrop-blur-md p-8 rounded-2xl border border-white/10 shadow-xl">
           <div class="flex items-center justify-between mb-6">
             <h3 class="text-xl font-bold text-white tracking-tight">Write a review</h3>
-            <div class="flex items-center px-3 py-1 bg-gray-800/50 rounded-full border border-gray-700">
+            <div class="flex items-center px-3 py-1 bg-gray-800/50  rounded-full border border-gray-700">
               <span class="text-yellow-400 mr-1">★</span>
               <span class="text-gray-200 text-sm font-medium">
                 {{ reviewForm.value.rating || 0 }} / 5
@@ -196,7 +196,7 @@
             <button
               type="submit"
               [disabled]="reviewForm.invalid"
-              class="w-fit mx-134 py-4 px-6 rounded-xl font-bold text-white transition-all duration-300 bg-linear-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 shadow-lg shadow-indigo-500/20 active:scale-[0.98] disabled:opacity-40 disabled:grayscale disabled:cursor-not-allowed"
+              class="w-fit mx-134 py-4 px-6 rounded-xl cursor-pointer font-bold text-white transition-all duration-300 bg-linear-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 shadow-lg shadow-indigo-500/20 active:scale-[0.98] disabled:opacity-40 disabled:grayscale disabled:cursor-not-allowed"
             >
               Post Review
             </button>
@@ -207,7 +207,7 @@
           @for (review of reviews(); track review.product_id) {
             <div class="bg-gray-800/80 rounded-xl p-5 border border-gray-700">
               <div class="flex justify-between mb-2">
-                <p class="text-white font-semibold">User {{ review.user_id }}</p>
+                <p class="text-white font-semibold">{{ review.username }}</p>
                 <span class="text-yellow-400">★ {{ review.rating }}</span>
               </div>
               <p class="text-gray-300">{{ review.comment }}</p>

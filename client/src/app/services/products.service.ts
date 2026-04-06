@@ -1,7 +1,7 @@
 import { Injectable, signal, inject, effect } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CreateProduct, Product, ProductResponse } from '../models/products';
-import { CreateReview } from '../models/reviews';
+import { CreateReview,Review } from '../models/reviews';
 import { debounceTime } from 'rxjs';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 
@@ -101,7 +101,7 @@ createProduct(data: any) {
 
 
     reviewsByProduct(productId: number) {
-        return this.http.get<CreateReview[]>(
+        return this.http.get<Review[]>(
             `${this.reviewsApi}?product_id=${productId}`
         );
     }
