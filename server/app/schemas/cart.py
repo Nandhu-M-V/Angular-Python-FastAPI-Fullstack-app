@@ -1,15 +1,11 @@
+# app/schemas/cart.py
 from pydantic import BaseModel
 from app.schemas.product import ProductOut
 
 
-class CartItemBase(BaseModel):
-    user_id: int
+class CartItemCreate(BaseModel):
     product_id: int
     quantity: int
-
-
-class CartItemCreate(CartItemBase):
-    pass
 
 
 class CartItemOut(BaseModel):

@@ -1,30 +1,35 @@
-<div class="p-6 bg-linear-to-bl from-gray-600 to-gray-900">
-  <div class="max-w-4/5 mx-auto">
+<div class="min-h-screen p-6 bg-linear-to-bl from-gray-800 to-gray-950">
+  <div class="max-w-7xl mx-auto">
 
-    <!-- Header -->
-    <div class="mb-8">
-      <h1 class="text-4xl font-bold text-white">
-        Explore Products
-      </h1>
-      <p class="text-gray-400">
-        Find the best gear for your setup
-      </p>
+    <div class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div>
+        <h1 class="text-4xl font-extrabold text-white tracking-tight">
+          Explore Products
+        </h1>
+        <p class="text-gray-400 mt-2">
+          Find the best gear for your setup
+        </p>
+      </div>
+      <div class="text-sm text-gray-500 font-mono">
+        Showing {{ productService.products().length }} of {{ productService.total() }} items
+      </div>
     </div>
 
-    <!-- Filters -->
-    <div class="sticky w-7/10 top-15 z-10 backdrop-blur-lg bg-gray-800/70 border border-gray-700 rounded-xl p-4 flex flex-col md:flex-row gap-4 mb-8">
-
-      <input
-        #searchInput
-        placeholder="🔍 Search products..."
-        (input)="productService.search.set(searchInput.value); productService.setPage(1)"
-        class="flex-1 px-4 py-2 rounded-lg border border-gray-600 bg-gray-900 text-white"
-      />
+    <div class="sticky top-6 z-30 backdrop-blur-md bg-gray-900/60 border border-gray-700/50 rounded-2xl p-4 flex flex-col md:flex-row gap-4 mb-12 shadow-2xl transition-all">
+      <div class="relative flex-1">
+        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">🔍</span>
+        <input
+          #searchInput
+          placeholder="Search products..."
+          (input)="productService.search.set(searchInput.value); productService.setPage(1)"
+          class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-600 bg-gray-800 text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all"
+        />
+      </div>
 
       <select
         #cat
         (change)="productService.category.set(cat.value); productService.setPage(1)"
-        class="px-4 py-2 rounded-lg border border-gray-600 bg-gray-900 text-white"
+        class="px-4 py-2.5 rounded-xl border border-gray-600 bg-gray-800 text-white cursor-pointer focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
       >
         <option value="">All Categories</option>
         <option value="electronics">Electronics</option>
@@ -32,134 +37,113 @@
         <option value="audio">Audio</option>
         <option value="components">Components</option>
       </select>
-
     </div>
 
-    <!-- LOADING -->
     @if (productService.loading()) {
-    <div class="flex justify-center py-20">
-        <div class="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-    </div>
-}
-
-    <!-- EMPTY -->
-    @else if (productService.products().length === 0) {
-      <div class="text-center py-20">
-        <div class="text-6xl mb-4">🛒</div>
-        <p class="text-gray-400 text-lg">No products found</p>
+      <div class="flex flex-col items-center justify-center py-32 gap-4">
+        <div class="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+        <p class="text-indigo-400 font-medium animate-pulse">Loading catalog...</p>
       </div>
     }
 
-    <!-- PRODUCTS -->
+    @else if (productService.products().length === 0) {
+      <div class="text-center py-32 bg-gray-800/30 rounded-3xl border border-dashed border-gray-700">
+        <div class="text-6xl mb-4">📦</div>
+        <h3 class="text-white text-xl font-semibold">No products found</h3>
+        <p class="text-gray-500 mt-2">Try adjusting your filters or search terms</p>
+        <button (click)="productService.search.set(''); searchInput.value=''" class="mt-6 text-indigo-400 hover:underline">Clear all filters</button>
+      </div>
+    }
+
     @else {
-
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-
         @for (product of productService.products(); track product.id) {
-
           <div
             (click)="goToProduct(product.id)"
-            class="flex flex-col group bg-gray-800/80 rounded-xl hover:shadow-xl transition border border-gray-700 cursor-pointer"
+            class="group flex flex-col bg-gray-800/50 rounded-2xl border border-gray-700 hover:border-indigo-500/50 hover:bg-gray-800 transition-all duration-300 cursor-pointer overflow-hidden hover:shadow-[0_0_30px_-10px_rgba(79,70,229,0.3)]"
           >
-
-            <!-- IMAGE -->
-            <div class="relative overflow-hidden">
+            <div class="relative aspect-square overflow-hidden bg-gray-900">
               <img
                 [src]="product.images[0]"
                 [alt]="product.title"
-                class="w-full h-52 object-cover group-hover:scale-105 transition"
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
               />
-
               <button
                 (click)="toggleWishlist(product.id); $event.stopPropagation()"
-                class="absolute top-3 right-3 bg-gray-900/80 p-2 rounded-full"
+                class="absolute top-3 right-3 bg-gray-900/60 backdrop-blur-md p-2.5 rounded-full hover:bg-gray-900 transition-colors"
               >
-                {{
-                  wishlistService.isInWishlist(user()?.id ?? 0, product.id)
-                    ? '❤️'
-                    : '🤍'
-                }}
+                {{ wishlistService.isInWishlist(product.id) ? '❤️' : '🤍' }}
               </button>
             </div>
 
-            <!-- CONTENT -->
-            <div class="p-5 flex flex-col grow">
-
-              <div class="flex justify-between text-xs mb-2">
-                <span class="text-blue-400">
+            <div class="p-5 flex flex-col flex-1">
+              <div class="flex justify-between items-center mb-3">
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
                   {{ product.brand }}
                 </span>
-                <span class="text-gray-500">
-                  {{ product.category }}
-                </span>
+                <span class="text-xs text-gray-500 italic">{{ product.category }}</span>
               </div>
 
-              <h2 class="text-white font-semibold line-clamp-2 mb-1">
+              <h2 class="text-white font-bold text-lg line-clamp-1 group-hover:text-indigo-300 transition-colors">
                 {{ product.title }}
               </h2>
 
-              <p class="text-sm text-gray-400 mb-3">
-                {{ product.description.slice(0,80) }}...
+              <p class="text-sm text-gray-400 mt-2 line-clamp-2 leading-relaxed">
+                {{ product.description }}
               </p>
 
-              @if (product.rating) {
-                <div class="text-sm text-gray-400 mb-3">
-                  ⭐ {{ product.rating }}
-                </div>
-              }
+              <div class="flex items-center gap-2 mt-3">
+                 <span class="text-yellow-500 text-sm">★</span>
+                 <span class="text-gray-300 text-sm font-medium">{{ product.rating || 'N/A' }}</span>
+              </div>
 
-              <div class="mt-auto">
-                <p class="text-2xl text-white font-bold mb-4">
+              <div class="mt-6 flex flex-col gap-3">
+                <p class="text-2xl text-white font-black">
                   ₹{{ product.price.toLocaleString() }}
                 </p>
 
                 <button
                   (click)="cartService.add(product.id); $event.stopPropagation()"
-                  class="w-full bg-blue-600 text-white py-2 rounded-lg cursor-pointer hover:bg-blue-700 hover:scale-105 transition-all duration-300 "
+                  class="w-full bg-indigo-600 text-white py-3 rounded-xl font-bold transition-all
+                         hover:bg-indigo-500 hover:shadow-lg active:scale-[0.97]
+                         flex items-center justify-center gap-2"
                 >
-                  Add to Cart
+                  <span>Add to Cart</span>
+                  <span class="text-lg">🛒</span>
                 </button>
               </div>
-
             </div>
-
           </div>
         }
-
       </div>
 
-      <!-- PAGINATION -->
-      <div class="flex justify-center items-center gap-4 mt-10 text-white">
+      <div class="flex flex-col items-center gap-4 mt-16">
+        <div class="flex justify-center items-center gap-4 text-white font-medium">
+          <button
+            (click)="productService.prevPage()"
+            [disabled]="productService.page() === 1"
+            class="h-12 px-6 bg-gray-800 rounded-xl transition-all border border-gray-700
+                   hover:bg-gray-700 active:scale-95
+                   disabled:opacity-40 disabled:cursor-not-allowed disabled:active:scale-100"
+          >
+            ← Prev
+          </button>
 
-        <button
-        class="py-1.5 px-3 bg-blue-800 rounded-2xl hover:bg-blue-600 cursor-pointer"
+          <span class="bg-indigo-600/10 text-indigo-400 px-5 py-2.5 rounded-xl border border-indigo-500/30 shadow-inner">
+            Page <span class="font-bold">{{ productService.page() }}</span>
+          </span>
 
-          (click)="productService.prevPage()"
-          [disabled]="productService.page() === 1"
-        >
-          Prev
-        </button>
-
-        <span>
-          Page {{ productService.page() }}
-        </span>
-
-        <button
-        class="py-1.5 px-3 bg-blue-800 rounded-2xl hover:bg-blue-600 cursor-pointer"
-          (click)="productService.nextPage()"
-          [disabled]="productService.page() * productService.limit >= productService.total()"
-        >
-          Next
-        </button>
-
+          <button
+            (click)="productService.nextPage()"
+            [disabled]="productService.page() * productService.limit >= productService.total()"
+            class="h-12 px-6 bg-gray-800 rounded-xl transition-all border border-gray-700
+                   hover:bg-gray-700 active:scale-95
+                   disabled:opacity-40 disabled:cursor-not-allowed disabled:active:scale-100"
+          >
+            Next →
+          </button>
+        </div>
       </div>
-
-      <!-- FOOTER -->
-      <div class="text-center text-sm text-gray-500 mt-4">
-        Showing {{ productService.products().length }} of {{ productService.total() }} products
-      </div>
-
     }
-
   </div>
 </div>

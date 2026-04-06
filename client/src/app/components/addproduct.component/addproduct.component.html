@@ -1,0 +1,109 @@
+<div class="min-h-screen flex justify-center items-center bg-gray-900 text-white px-4 py-8">
+  <div class="bg-gray-800 p-8 rounded-2xl w-full max-w-lg shadow-2xl border border-gray-700">
+
+    <h2 class="text-2xl font-bold mb-8 text-center flex items-center justify-center gap-2">
+      <span class="text-indigo-400 text-3xl">+</span> Add New Product
+    </h2>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-5">
+
+      <div class="flex flex-col gap-1">
+        <label class="text-sm font-medium text-gray-400 ml-1">Product Title *</label>
+        <input
+          formControlName="title"
+          placeholder="e.g. Ultra Gaming Mouse"
+          class="w-full px-4 py-2.5 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+        />
+        @if (form.controls.title.touched && form.controls.title.invalid) {
+          <p class="text-red-400 text-xs ml-1">Title is required</p>
+        }
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="flex flex-col gap-1">
+          <label class="text-sm font-medium text-gray-400 ml-1">Price *</label>
+          <input
+            type="number"
+            formControlName="price"
+            class="w-full px-4 py-2.5 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+          />
+          @if (form.controls.price.touched && form.controls.price.invalid) {
+            <p class="text-red-400 text-xs ml-1">Price is required</p>
+          }
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label class="text-sm font-medium text-gray-400 ml-1">Stock</label>
+          <input
+            type="number"
+            formControlName="stock"
+            class="w-full px-4 py-2.5 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+          />
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="flex flex-col gap-1">
+          <label class="text-sm font-medium text-gray-400 ml-1">Brand</label>
+          <input
+            formControlName="brand"
+            placeholder="Logitech"
+            class="w-full px-4 py-2.5 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+          />
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-sm font-medium text-gray-400 ml-1">Category ID</label>
+          <input
+            type="number"
+            formControlName="category_id"
+            class="w-full px-4 py-2.5 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+          />
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label class="text-sm font-medium text-gray-400 ml-1">Description</label>
+        <textarea
+          formControlName="description"
+          rows="2"
+          class="w-full px-4 py-2.5 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all resize-none"
+        ></textarea>
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label class="text-sm font-medium text-gray-400 ml-1">Images (comma separated URLs)</label>
+        <input
+          formControlName="images"
+          placeholder="url1.jpg, url2.jpg"
+          class="w-full px-4 py-2.5 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+        />
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label class="text-sm font-medium text-gray-400 ml-1">Specs (JSON)</label>
+        <textarea
+          formControlName="specs"
+          rows="2"
+          placeholder='{"Color": "Black"}'
+          class="w-full px-4 py-2.5 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-mono text-xs resize-none"
+        ></textarea>
+      </div>
+
+      <div class="pt-4">
+        <button
+          type="submit"
+          [disabled]="loading || form.invalid"
+          class="w-full bg-indigo-600 hover:bg-indigo-500 disabled:bg-gray-700 disabled:text-gray-500 py-3 rounded-xl font-bold transition-all active:scale-[0.98] flex justify-center items-center gap-3 shadow-lg"
+        >
+          @if (loading) {
+            <div class="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin"></div>
+            Creating Product...
+          } @else {
+            Create Product
+          }
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

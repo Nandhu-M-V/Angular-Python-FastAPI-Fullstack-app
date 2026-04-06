@@ -40,6 +40,17 @@ export class ProductService {
 );
 
 
+// services/products.service.ts
+
+createProduct(data: any) {
+  return this.http.post(`${this.api}`, data);
+}
+
+
+    deleteProduct(id: number) {
+  return this.http.delete(`${this.api}/${id}`);
+}
+
     load() {
         const skip = (this.page() - 1) * this.limit;
 

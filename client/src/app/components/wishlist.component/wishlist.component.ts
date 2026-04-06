@@ -3,27 +3,28 @@ import { WishlistService } from '../../services/wishlist.service';
 import { ProductService } from '../../services/products.service';
 import { CartService } from '../../services/cart.service';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-wishlist',
+    standalone: true,
+    imports: [CommonModule],
     templateUrl: './wishlist.component.html',
 })
 export class WishlistComponent {
+
     private wishlistService = inject(WishlistService);
     private productService = inject(ProductService);
     private router = inject(Router);
 
     cartService = inject(CartService);
 
-    userId = 1;
 
-    
     wishlistProducts = computed(() => {
         const wishlist = this.wishlistService.wishlist();
         const products = this.productService.products();
 
         return wishlist
-            .filter((w) => w.user_id === this.userId)
             .map((w) =>
                 products.find((p) => p.id === w.product_id)
             )
@@ -38,8 +39,7 @@ export class WishlistComponent {
         this.router.navigate(['/']);
     }
 
-    // ✅ FIXED
     remove(productId: number) {
-        this.wishlistService.toggle(this.userId, productId);
+        this.wishlistService.toggle(productId);
     }
 }

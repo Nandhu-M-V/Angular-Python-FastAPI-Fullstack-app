@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models.models import Product, CartItem, Review, OrderItem, Category
 from app.schemas.product import ProductOut, ProductCreate, ProductUpdate
+from app.dependency.protectedRoutes import require_admin
 
 router = APIRouter()
 
@@ -43,8 +44,10 @@ def get_product(product_id: int, db: Session = Depends(get_db)):
 
 
 #  create
-@router.post("/", response_model=ProductOut, status_code=status.HTTP_201_CREATED)
-def create_product(product: ProductCreate, db: Session = Depends(get_db)):
+@router.post("/", response_model=ProductOut, status_code=201)
+def create_product(
+    product: ProductCreate, db: Session = Depends(get_db), user=Depends(require_admin)
+):
     new_product = Product(**product.model_dump())
 
     db.add(new_product)
@@ -75,17 +78,20 @@ def update_product(product_id: int, data: ProductUpdate, db: Session = Depends(g
 
 #  delete
 @router.delete("/{product_id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_product(product_id: int, db: Session = Depends(get_db)):
+def delete_product(
+    product_id: int, db: Session = Depends(get_db), user=Depends(require_admin)
+):
     product = db.query(Product).filter(Product.id == product_id).first()
 
     if not product:
         raise HTTPException(status_code=404, detail="Product not found")
 
-    db.query(CartItem).filter(CartItem.product_id == product_id).delete()
-    db.query(Review).filter(Review.product_id == product_id).delete()
-    db.query(OrderItem).filter(OrderItem.product_id == product_id).delete()
+    if user.get("role") == "admin":
+        db.query(CartItem).filter(CartItem.product_id == product_id).delete()
+        db.query(Review).filter(Review.product_id == product_id).delete()
+        db.query(OrderItem).filter(OrderItem.product_id == product_id).delete()
 
-    db.delete(product)
-    db.commit()
+        db.delete(product)
+        db.commit()
 
     return

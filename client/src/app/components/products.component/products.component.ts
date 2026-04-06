@@ -6,52 +6,64 @@ import { CartService } from '../../services/cart.service';
 import { WishlistService } from '../../services/wishlist.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { ToastService } from '../../UI/services/toast.service';
 
 @Component({
-    selector: 'app-products',
-    standalone: true,
-    templateUrl: './products.component.html',
-    imports: [CommonModule],
+  selector: 'app-products',
+  standalone: true,
+  templateUrl: './products.component.html',
+  imports: [CommonModule],
 })
 export class ProductsComponent {
-    productService = inject(ProductService);
-    cartService = inject(CartService);
-    wishlistService = inject(WishlistService);
-    authService = inject(AuthService);
-    router = inject(Router);
 
-    user = this.authService.user;
+  productService = inject(ProductService);
+  cartService = inject(CartService);
+  wishlistService = inject(WishlistService);
+  private authService = inject(AuthService);
+  private router = inject(Router);
+  private toast = inject(ToastService);
 
-    cart = this.cartService
+  user = this.authService.user;
 
-    constructor () {
-       this.cart.load()
+  constructor() {
+    this.cartService.load();
+  }
+
+  goToProduct(id: number) {
+    this.router.navigate(['/product', id]);
+  }
+
+  toggleWishlist(productId: number) {
+    if (!this.user()) {
+      this.toast.show('Login to use wishlist', 'error');
+      return;
     }
 
-    goToProduct(id: number) {
-        this.router.navigate(['/product', id]);
+    const exists = this.wishlistService.isInWishlist(productId);
+    this.wishlistService.toggle(productId);
+
+    this.toast.show(
+      exists ? 'Removed from wishlist' : 'Added to wishlist ❤️',
+      'success'
+    );
+  }
+
+  addToCart(productId: number) {
+    if (!this.user()) {
+      this.toast.show('Login to add to cart', 'error');
+      return;
     }
 
-    add(title: string, price: string) {
-        const product = {
-            title,
-            price: Number(price),
-            category: 'electronics',
-            brand: 'Generic',
-            rating: 0,
-            stock: 10,
-            images: ['https://via.placeholder.com/200'],
-            description: '',
-            specs: {},
-        };
+    this.cartService.add(productId);
+    this.toast.show('Added to cart 🛒', 'success');
+  }
 
-        this.productService.addProduct(product).subscribe();
+  goToCreate() {
+    if (!this.authService.isAdmin()) {
+      this.toast.show('Admin only', 'error');
+      return;
     }
 
-    toggleWishlist(productId: number) {
-        const user = this.user();
-        if (!user) return;
-
-        this.wishlistService.toggle(user.id, productId);
-    }
+    this.router.navigate(['/create-product']);
+  }
 }

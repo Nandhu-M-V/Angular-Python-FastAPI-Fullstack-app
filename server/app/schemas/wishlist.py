@@ -3,7 +3,6 @@ from pydantic import BaseModel
 
 # Base schema
 class WishlistBase(BaseModel):
-    user_id: int
     product_id: int
 
 

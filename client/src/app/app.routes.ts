@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { adminGuard } from './services/adminguard';
 
 export const routes: Routes = [
     {
@@ -28,6 +29,18 @@ export const routes: Routes = [
                 (m) => m.WishlistComponent,
             ),
     },
+    {
+        path: 'login',
+        loadComponent: () => import('./components/userlogin.component/userlogin.component')
+        .then(m => m.LoginComponent)
+    },
+    {
+  path: 'create-product',
+  loadComponent: () =>
+    import('./components/addproduct.component/addproduct.component')
+      .then(m => m.CreateProductComponent),
+  canActivate: [adminGuard]
+},
     {
         path: '**',
         redirectTo: '',

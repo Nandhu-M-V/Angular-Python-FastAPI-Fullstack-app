@@ -6,7 +6,8 @@ import { WishlistService } from '../../services/wishlist.service';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ToastService } from '../../UI/services/toast.service';
 import { CreateReview } from '../../models/reviews';
-import { toSignal } from '@angular/core/rxjs-interop'; // Angular 17+ signals interop
+import { toSignal } from '@angular/core/rxjs-interop';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -19,6 +20,7 @@ export class ProductDetailComponent {
   private fb = inject(FormBuilder);
   router = inject(Router);
   toast = inject(ToastService);
+  auth = inject(AuthService);
 
   selectedImage = signal<string | null>(null);
 
@@ -67,6 +69,27 @@ export class ProductDetailComponent {
       if (revs) this.reviews.set(revs);
     });
   }
+
+  isAdmin() {
+  return this.auth.isAdmin();
+}
+
+  deleteProduct() {
+  if (!this.productId) return;
+
+  const confirmDelete = confirm('Are you sure you want to delete this product?');
+  if (!confirmDelete) return;
+
+  this.productService.deleteProduct(this.productId).subscribe({
+    next: () => {
+      this.toast.success('Product deleted 🗑️');
+      this.router.navigate(['/']);
+    },
+    error: () => {
+      this.toast.error('Failed to delete product');
+    }
+  });
+}
 
   submitReview() {
     if (this.reviewForm.invalid || !this.productId) return;

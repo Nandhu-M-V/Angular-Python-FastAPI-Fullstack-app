@@ -90,17 +90,25 @@
             </button>
 
             <button
-              (click)="wishlistService.toggle(1, p.id)"
+              (click)="wishlistService.toggle(p.id)"
               class="px-6 py-3 rounded-xl cursor-pointer border-2 transition-all duration-200 hover:scale-105"
-              [class.bg-red-100]="wishlistService.isInWishlist(1, p.id)"
-              [class.border-red-500]="wishlistService.isInWishlist(1, p.id)"
-              [class.border-gray-600]="!wishlistService.isInWishlist(1, p.id)"
-              [class.hover:border-red-500]="!wishlistService.isInWishlist(1, p.id)"
+              [class.bg-red-100]="wishlistService.isInWishlist(p.id)"
+              [class.border-red-500]="wishlistService.isInWishlist(p.id)"
+              [class.border-gray-600]="!wishlistService.isInWishlist(p.id)"
+              [class.hover:border-red-500]="!wishlistService.isInWishlist(p.id)"
             >
               <span class="text-2xl">
-                {{ wishlistService.isInWishlist(1, p.id) ? '❤️' : '🤍' }}
+                {{ wishlistService.isInWishlist(p.id) ? '❤️' : '🤍' }}
               </span>
             </button>
+            @if (isAdmin()) {
+                <button
+                    (click)="deleteProduct()"
+                    class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg mt-4"
+                >
+                    🗑️ Delete Product
+                </button>
+                }
           </div>
 
           @if (p.specs) {

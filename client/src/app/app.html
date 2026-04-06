@@ -1,119 +1,136 @@
-<nav class="w-full fixed top-0 z-50 backdrop-blur-lg bg-gray-900 border-b shadow-sm">
-    <div class="mx-auto px-6 py-3 flex justify-between">
-        <a
-            routerLink="/"
-            class="text-xl font-bold text-white cursor-pointer tracking-tight hover:text-indigo-600 transition"
+<nav class="fixed top-0 w-full z-50 backdrop-blur-xl bg-gray-900/80 border-b border-gray-800 shadow-lg">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+
+    <a
+      routerLink="/"
+      class="text-2xl font-black text-white tracking-tighter hover:text-indigo-400 transition-all flex items-center gap-2"
+    >
+      <span class="bg-indigo-600 text-white px-2 py-1 rounded-lg text-sm italic">E-C</span>
+      Angular
+    </a>
+
+    <div class="flex items-center gap-8 text-sm font-semibold">
+
+      <a
+        routerLink="/"
+        routerLinkActive="text-indigo-400"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="text-gray-300 hover:text-indigo-400 transition-colors"
+      >
+        Products
+      </a>
+
+      <a
+        routerLink="/wishlist"
+        routerLinkActive="text-indigo-400"
+        class="relative text-gray-300 hover:text-indigo-400 transition-colors"
+      >
+        ❤️ <span class="hidden sm:inline">Wishlist</span>
+        @if (wishlistService.count()) {
+          <span class="absolute -top-2 -right-3 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white shadow-sm animate-bounce">
+            {{ wishlistService.count() }}
+          </span>
+        }
+      </a>
+
+      <a
+        routerLink="/cart"
+        routerLinkActive="text-indigo-400"
+        class="relative text-gray-300 hover:text-indigo-400 transition-colors"
+      >
+        🛒 <span class="hidden sm:inline">Cart</span>
+        @if (cartService.count()) {
+          <span class="absolute -top-2 -right-3 flex h-4 w-4 items-center justify-center rounded-full bg-indigo-500 text-[10px] font-bold text-white shadow-sm">
+            {{ cartService.count() }}
+          </span>
+        }
+      </a>
+
+      <div class="relative">
+        <button
+          (click)="toggleMenu($event)"
+          class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gray-800 border border-gray-700 text-gray-300 hover:text-white hover:border-gray-500 transition-all cursor-pointer"
         >
-            Angular E-C
-        </a>
+          More
+          <span class="text-[10px] transition-transform" [class.rotate-180]="menuOpen">▼</span>
+        </button>
 
-        <div class="flex items-center gap-6 text-sm font-medium">
-            <a
-                routerLink="/"
-                routerLinkActive="text-indigo-600"
-                [routerLinkActiveOptions]="{ exact: true }"
-                class="text-gray-200 cursor-pointer hover:text-indigo-600 transition"
-            >
-                Products
-            </a>
-
-            <a
-                routerLink="/wishlist"
-                routerLinkActive="text-indigo-600"
-                class="relative cursor-pointer text-gray-200 hover:text-indigo-600 transition"
-            >
-                ❤️ Wishlist
-
-                @if (wishlistService.count()) {
-                    <span
-                        class="absolute -top-2 -right-3 text-xs bg-red-500 text-white px-1.5 rounded-full"
-                    >
-                        {{ wishlistService.count() }}
-                    </span>
-                }
-            </a>
-
-            <a
-                routerLink="/cart"
-                routerLinkActive="text-indigo-600"
-                class="relative cursor-pointer text-gray-200 hover:text-indigo-600 transition"
-            >
-                🛒 Cart
-
-                @if (cartService.count()) {
-                    <span
-                        class="absolute -top-2 -right-3 text-xs bg-indigo-600 text-white px-1.5 rounded-full"
-                    >
-                        {{ cartService.count() }}
-                    </span>
-                }
-            </a>
-
-            <div class="relative" (click)="toggleMenu($event)">
-                <button
-                    class="text-gray-200 hover:text-indigo-600 cursor-pointer transition flex items-center gap-1"
+        @if (menuOpen) {
+          <div
+            class="absolute right-0 mt-3 w-56 bg-gray-800 text-gray-200 rounded-xl shadow-2xl border border-gray-700 py-2 overflow-hidden animate-in fade-in zoom-in duration-200"
+            (click)="$event.stopPropagation()"
+          >
+            @if (!auth.isLoggedIn()) {
+              <a routerLink="/login" (click)="menuOpen = false" class="flex items-center gap-3 px-4 py-3 hover:bg-gray-700 transition cursor-pointer">
+                <span>🔐</span> Login / Register
+              </a>
+            } @else {
+              @if (auth.isAdmin()) {
+                <a
+                  routerLink="/create-product"
+                  (click)="menuOpen = false"
+                  class="flex items-center gap-3 px-4 py-3 text-emerald-400 hover:bg-emerald-500/10 transition cursor-pointer border-b border-gray-700"
                 >
-                    More ⌄
-                </button>
+                  <span class="text-lg">+</span> Add New Product
+                </a>
+              }
 
-                @if (menuOpen) {
-                    <div
-                        class="absolute right-0 mt-3 w-48 bg-white cursor-pointer text-gray-800 rounded-xl shadow-lg border py-2 z-50"
-                        (click)="$event.stopPropagation()"
-                    >
-                        <a
-                            routerLink="/profile"
-                            class="block px-4 py-2 cursor-pointer hover:bg-gray-100 transition"
-                        >
-                            👤 Profile
-                        </a>
+              <a
+                (click)="logout(); menuOpen = false"
+                class="flex items-center gap-3 px-4 py-3 text-red-400 hover:bg-red-500/10 transition cursor-pointer"
+              >
+                <span>🚪</span> Logout
+              </a>
+            }
+          </div>
+        }
+      </div>
 
-                        <a class="block px-4 py-2 hover:bg-gray-100 transition cursor-pointer">
-                            ⚙️ Settings
-                        </a>
-
-                        <hr class="my-2" />
-
-                        <a
-                            class="block px-4 py-2 text-red-500 hover:bg-red-50 transition cursor-pointer"
-                        >
-                            🚪 Logout
-                        </a>
-                    </div>
-                }
-            </div>
-        </div>
     </div>
+  </div>
 </nav>
 
-<main class="flex-1 pt-10">
-    <app-toast></app-toast>
+
+<main class="flex-1 pt-20 min-h-screen bg-linear-to-b from-gray-950 to-gray-900">
+  <app-toast></app-toast>
+  <div class="animate-in fade-in slide-in-from-bottom-2 duration-500">
     <router-outlet />
+  </div>
 </main>
 
-<footer class="bg-gray-900 text-gray-300">
-    <div class="max-w-7xl mx-auto px-6 py-10 grid md:grid-cols-3 gap-8">
-        <div>
-            <h2 class="text-xl font-bold cursor-pointer text-white mb-2">⚡ Angular E-C</h2>
-            <p class="text-sm text-gray-400">Modern e-commerce experience built with Angular.</p>
-        </div>
 
-        <div class="flex flex-col gap-2 text-sm">
-            <h3 class="text-white font-semibold mb-2">Quick Links</h3>
-            <a routerLink="/" class="hover:text-indigo-400 transition">Products</a>
-            <a routerLink="/cart" class="hover:text-indigo-400 transition">Cart</a>
-            <a routerLink="/wishlist" class="hover:text-indigo-400 transition">Wishlist</a>
-        </div>
+<footer class="bg-gray-950 text-gray-500 border-t border-gray-900">
+  <div class="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12">
 
-        <div class="flex flex-col gap-2 text-sm">
-            <h3 class="text-white font-semibold mb-2">Support</h3>
-            <a class="hover:text-indigo-400 transition cursor-pointer">Contact</a>
-            <a class="hover:text-indigo-400 transition cursor-pointer">Privacy Policy</a>
-            <a class="hover:text-indigo-400 transition cursor-pointer">Terms</a>
-        </div>
+    <div class="col-span-1 md:col-span-2">
+      <h2 class="text-2xl font-black text-white mb-4 tracking-tighter">⚡ Angular E-C</h2>
+      <p class="text-sm leading-relaxed max-w-xs">
+        An E-commerce storefront. Built with Angular 17+, Tailwind CSS, and a FastAPI backend.
+      </p>
     </div>
 
-    <div class="text-center text-xs text-gray-500 border-t border-gray-800 py-4">
-        © 2026 Angular E-C. All rights reserved.
+    <div>
+      <h3 class="text-white font-bold mb-5 text-sm uppercase tracking-widest">Shop</h3>
+      <ul class="flex flex-col gap-3 text-sm">
+        <li><a routerLink="/" class="hover:text-indigo-400 transition-colors">All Products</a></li>
+        <li><a routerLink="/cart" class="hover:text-indigo-400 transition-colors">My Cart</a></li>
+        <li><a routerLink="/wishlist" class="hover:text-indigo-400 transition-colors">Wishlist</a></li>
+      </ul>
     </div>
+
+    <div>
+      <h3 class="text-white font-bold mb-5 text-sm uppercase tracking-widest">Company</h3>
+      <ul class="flex flex-col gap-3 text-sm">
+        <li><a class="hover:text-indigo-400 transition cursor-pointer">Help Center</a></li>
+        <li><a class="hover:text-indigo-400 transition cursor-pointer">Privacy Policy</a></li>
+        <li><a class="hover:text-indigo-400 transition cursor-pointer">Terms of Service</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="max-w-7xl mx-auto px-6 py-8 border-t border-gray-900 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] uppercase tracking-widest font-bold text-gray-600">
+    <p>© 2026 Angular E-Commerce Storefront</p>
+    <p>Made using Angular + Python-fastAPI</p>
+  </div>
 </footer>
