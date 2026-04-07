@@ -39,6 +39,8 @@ export class ProductsComponent {
       return;
     }
 
+    
+
     const exists = this.wishlistService.isInWishlist(productId);
     this.wishlistService.toggle(productId);
 

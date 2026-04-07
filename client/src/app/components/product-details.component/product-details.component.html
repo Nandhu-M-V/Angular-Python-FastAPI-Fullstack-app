@@ -12,7 +12,7 @@
         <div class="space-y-4">
           <div class="bg-gray-800/80 rounded-2xl p-6 backdrop-blur-sm border border-gray-700">
             <img
-              [src]="selectedImage() || p.images[0]"
+              [src]="productService.getImageUrl(p.images[0])"
               [alt]="p.title"
               class="w-full h-96 object-contain rounded-xl"
             />
@@ -21,7 +21,7 @@
           <div class="flex gap-3 overflow-x-auto pb-2">
             @for (img of p.images ?? []; track img) {
               <img
-                [src]="img"
+                [src]="productService.getImageUrl(p.images[0])"
                 (click)="selectedImage.set(img)"
                 class="h-20 w-20 object-contain bg-gray-800/80 rounded-lg border-2 cursor-pointer transition-all duration-200 hover:scale-105"
                 [class.border-indigo-500]="selectedImage() === img"

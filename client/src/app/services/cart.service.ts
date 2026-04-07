@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Cart } from '../models/cartItems';
 import { ToastService } from '../UI/services/toast.service';
 import { AuthService } from './auth.service';
+import { environment } from '../../env.constants';
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
@@ -10,7 +11,7 @@ export class CartService {
   private toast = inject(ToastService);
   private auth = inject(AuthService);
 
-  private api = `http://127.0.0.1:8000/cart`;
+  private api = `${environment.apiUrl}cart`;
 
   cart = signal<Cart[]>([]);
 

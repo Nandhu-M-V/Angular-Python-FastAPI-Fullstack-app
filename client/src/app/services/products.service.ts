@@ -4,15 +4,25 @@ import { CreateProduct, Product, ProductResponse } from '../models/products';
 import { CreateReview,Review } from '../models/reviews';
 import { debounceTime } from 'rxjs';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { environment } from '../../env.constants';
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
     private http = inject(HttpClient);
 
-    private api = `http://127.0.0.1:8000/products`;
-    private reviewsApi = `http://127.0.0.1:8000/reviews`;
+    private api = `${environment.apiUrl}products`;
+    private reviewsApi = `${environment.apiUrl}reviews`;
 
 
+    getImageUrl(path: string): string {
+    if (!path) return 'assets/images/default.jpg';
+
+    if (path.startsWith('uploads/')) {
+        return environment.apiUrl + path;
+    }
+
+    return path;
+    }
 
     // filters
     search = signal('');

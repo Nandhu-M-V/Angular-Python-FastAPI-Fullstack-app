@@ -19,6 +19,8 @@ export class App {
 
     menuOpen = false;
 
+    
+
     toggleMenu(event: Event) {
         event.stopPropagation();
         this.menuOpen = !this.menuOpen;
@@ -31,9 +33,9 @@ export class App {
     }
 
     logout() {
-    this.auth.logout(); // clear token / user data
-    this.cartService.cart.set([]); // optional: clear cart
-    this.wishlistService.refresh(); // optional: refresh wishlist
+    this.auth.logout();
+    this.cartService.cart.set([]);
+    this.wishlistService.refresh();
     this.router.navigate(['/login']);
   }
 
@@ -41,5 +43,4 @@ export class App {
     closeMenu() {
         this.menuOpen = false;
     }
-    //   protected readonly title = signal('angular-e-c-app');
 }

@@ -1,6 +1,7 @@
 import { Injectable, signal, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { TokenResponse } from '../models/auth';
+import { environment } from '../../env.constants';
 // import { WishlistService } from './wishlist.service';
 
 @Injectable({ providedIn: 'root' })
@@ -9,7 +10,7 @@ export class AuthService {
 
   user = signal<{ id: number; email: string; role: string } | null>(null);
 
-  private baseUrl = 'http://127.0.0.1:8000/auth';
+  private baseUrl = `${environment.apiUrl}auth`;
 
   constructor() {
     const token = localStorage.getItem('token');

@@ -5,6 +5,7 @@ import { switchMap, of } from 'rxjs';
 import { WishlistItem } from '../models/wishlistItem';
 import { ToastService } from '../UI/services/toast.service';
 import { AuthService } from './auth.service';
+import { environment } from '../../env.constants';
 
 @Injectable({ providedIn: 'root' })
 export class WishlistService {
@@ -12,7 +13,7 @@ export class WishlistService {
   private toast = inject(ToastService);
   private auth = inject(AuthService);
 
-  private api = `http://127.0.0.1:8000/wishlist`;
+  private api = `${environment.apiUrl}wishlist`;
 
   private refreshTrigger = signal(0);
 
